@@ -137,6 +137,35 @@ class App(DOMNode):
             f"_node_main_parent={self._node_main_parent!r}"
         )
 
+    def set_primary_window(self, window: Tag, value: bool) -> None:
+        dpg.set_primary_window(window, value)
+
+    def bind_font(self, font: Tag) -> None:
+        dpg.bind_font(font)
+
+    def bind_item_font(self, item: Tag, font: Tag) -> None:
+        dpg.bind_item_font(item, font)
+
+    def show_font_manager(self) -> None:
+        """Shows a debug tool for the font manager."""
+        dpg.show_font_manager()
+    
+    def show_about(self) -> None:
+        """Shows the standard about window."""
+        dpg.show_about()
+
+    def show_metrics(self) -> None:
+        """Shows the standard metrics window."""
+        dpg.show_metrics()
+
+    def show_item_registry(self) -> None:
+        """Shows the item hierarchy of your application."""
+        dpg.show_item_registry()
+
+    def show_debug(self) -> None:
+        """Shows the standard debug window."""
+        dpg.show_debug()
+
     def on_ready(self) -> None:
         """Called after full initialization, before the main loop starts."""
         pass

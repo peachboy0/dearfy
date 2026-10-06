@@ -2,7 +2,7 @@ import dearpygui.dearpygui as dpg
 # > Dearfy
 from dearfy.field import field
 from dearfy.typing import Tag, Callback, Position
-from dearfy.base import Item, ItemKwargs, Enableable, Showable
+from dearfy.base import Item, ItemKwargs, Enableable, Showable, Variable
 from dearfy.functions import get_method_needed
 from dearfy.validator import ValidateKwargsAction
 # > Local Imports
@@ -10,9 +10,10 @@ from typing_extensions import Unpack
 
 # ! Input Text Class
 
-class InputText(Item, Enableable, Showable):
+class InputText(Item, Enableable, Showable, Variable[str]):
     REFERENCE_METHOD = dpg.add_input_text
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
+    #NODE_CONTAINERABLE = False
 
     def __init__(self,
         width: int = 0,

@@ -124,6 +124,13 @@ class Item(DOMNode):
             f"\t- _node_main_parent={self._node_main_parent!r}\n"
             f"\t- _node_parent={self._node_parent!r}\n"
         )
+
+    def push_item(self, item: Item, *, preparing: bool=True, preinit: bool=True, init: bool=True, postinit: bool=True) -> Tag:
+        if preparing: item.__dearfy_preparing__()
+        self._add_child(item)
+        if preinit: item.__dearfy_preinit__()
+        if init: item.__dearfy_init__()
+        if postinit: item.__dearfy_postinit__()
     
     def _move_item_to(self, parent: Tag) -> None:
         loguru.logger.trace(f'Move {self} to {parent!r}')

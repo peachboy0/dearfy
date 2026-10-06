@@ -4,6 +4,12 @@ import dearpygui.dearpygui as dpg
 # > Local Imports
 from dearfy.base.item import Item
 from dearfy.base.require_bases import RequireBasesMeta, require_bases
+# > Typing
+from typing_extensions import Generic, TypeVar
+
+# ! Type Vars
+
+_T = TypeVar('_T')
 
 # ! Enableable Spetific Class
 
@@ -30,3 +36,13 @@ class Showable(metaclass=RequireBasesMeta):
         if self.inited and self._config['show']:
             dpg.hide_item(self.tag)
             self._config['show'] = False
+
+@require_bases(Item)
+class Variable(Generic[_T], metaclass=RequireBasesMeta):
+    @property
+    def value(self) -> _T:
+        return dpg.get_value(self._config['tag'])
+
+    @value.setter
+    def value(self, v: _T) -> None:
+        dpg.set_value(self._config['tag'], v)

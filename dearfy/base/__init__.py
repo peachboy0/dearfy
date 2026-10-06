@@ -1,5 +1,5 @@
 from dearfy.base.item import Item, ItemKwargs
-from dearfy.base.spetific import Enableable, Showable
+from dearfy.base.spetific import Enableable, Showable, Variable
 from dearfy.base.domnode import DOMNode
 
 # ! Attributes
@@ -7,5 +7,5 @@ from dearfy.base.domnode import DOMNode
 __all__ = [
     'DOMNode',
     'Item', 'ItemKwargs',
-    'Enableable', 'Showable'
+    'Enableable', 'Showable', 'Variable'
 ]

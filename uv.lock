@@ -13,7 +13,7 @@ wheels = [
 
 [[package]]
 name = "dearfy"
-version = "0.1.3a1"
+version = "0.1.4a1"
 source = { virtual = "." }
 dependencies = [
     { name = "dearpygui" },

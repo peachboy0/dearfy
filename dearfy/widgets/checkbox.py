@@ -2,7 +2,7 @@ import dearpygui.dearpygui as dpg
 # > Dearfy
 from dearfy.field import field
 from dearfy.typing import Tag, Callback, Position
-from dearfy.base import Item, ItemKwargs, Showable, Enableable
+from dearfy.base import Item, ItemKwargs, Showable, Enableable, Variable
 from dearfy.functions import get_method_needed
 from dearfy.validator import ValidateKwargsAction
 # > Local Imports
@@ -10,7 +10,7 @@ from typing_extensions import Unpack
 
 # ! Checkbox Class
 
-class Checkbox(Item, Showable, Enableable):
+class Checkbox(Item, Showable, Enableable, Variable[bool]):
     REFERENCE_METHOD = dpg.add_checkbox
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
 
