@@ -1,62 +1,61 @@
 import dearpygui.dearpygui as dpg
 # > Dearfy
 from dearfy.field import field
-from dearfy.typing import Tag, Color, Callback, Position
-from dearfy.base import Item, ItemKwargs, Showable
+from dearfy.typing import Tag, Callback, Position
+from dearfy.base import Item, ItemKwargs, Showable, Enableable
 from dearfy.functions import get_method_needed
 from dearfy.validator import ValidateKwargsAction
 # > Local Imports
 from typing_extensions import Unpack
 
-# ! Text Class
+# ! Checkbox Class
 
-class Text(Item, Showable):
-    REFERENCE_METHOD = dpg.add_text
+class Checkbox(Item, Showable, Enableable):
+    REFERENCE_METHOD = dpg.add_checkbox
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
 
     def __init__(self,
-        default_value: str = '',
-        *,
+        width: int = 0,
+        height: int = 0,
         indent: int = -1,
         parent: Tag | None = None,
         before: Tag | None = None,
         source: Tag | None = None,
         payload_type: str = '$$DPG_PAYLOAD',
+        callback: Callback | None = None,
         drag_callback: Callback | None = None,
         drop_callback: Callback | None = None,
         show: bool = True,
+        enabled: bool = True,
         pos: Position | None = None,
         filter_key: str = '',
         tracked: bool = False,
         track_offset: float = 0.5,
-        wrap: int = -1,
-        bullet: bool = False,
-        color: Color | None = None,
-        show_label: bool = False,
+        default_value: bool = False,
         **kwargs: Unpack[ItemKwargs]
     ) -> None:
         super().__init__(
-            default_value=default_value,
+            width=width,
+            height=height,
             indent=indent,
             parent=field(parent, 0),
             before=field(before, 0),
             source=field(source, 0),
             payload_type=payload_type,
+            callback=callback,
             drag_callback=drag_callback,
             drop_callback=drop_callback,
             show=show,
+            enabled=enabled,
             pos=field(pos, default_factory=list),
             filter_key=filter_key,
             tracked=tracked,
             track_offset=track_offset,
-            wrap=wrap,
-            bullet=bullet,
-            color=field(color, (-255, 0, 0, 255)),
-            show_label=show_label,
+            default_value=default_value,
             **kwargs
         )
-    
+
     def __dearfy_init__(self) -> None:
-        kwargs = get_method_needed(dpg.add_text, **self._config)
-        self._config['tag'] = dpg.add_text(**kwargs)
+        kwargs = get_method_needed(dpg.add_checkbox, **self._config)
+        self._config['tag'] = dpg.add_checkbox(**kwargs)
         super().__dearfy_init__()

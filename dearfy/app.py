@@ -137,28 +137,53 @@ class App(DOMNode):
             f"_node_main_parent={self._node_main_parent!r}"
         )
 
+    def on_ready(self) -> None:
+        """Called after full initialization, before the main loop starts."""
+        pass
+
+    def on_preparing(self) -> None:
+        """Called before initialization, when the context has NOT yet been created."""
+        pass
+
+    def on_init(self) -> None:
+        """Called during initialization."""
+        pass
+
+    def after_init(self) -> None:
+        """Called after initialization (postinit)."""
+        pass
+
+    def before_init(self) -> None:
+        """Called before initialization, but after the context has ALREADY been created."""
+        pass
+
     def run(self) -> None:
         self._state = AppState.PREPARING
         self.__dearfy_preparing__()
+        self.on_preparing()
         loguru.logger.trace('[green]▬▬▬▬▬[/green] [yellow]AFTER PREPARING[/yellow] [green]▬▬▬▬▬[/green]')
         loguru.logger.trace(self._to_rich_tree())
         dpg.create_context()
         dpg.create_viewport(**(self._gkwagrs['create_viewport']))
         self._state = AppState.PREINIT
         self.__dearfy_preinit__()
+        self.before_init()
         loguru.logger.trace('[green]▬▬▬▬▬[/green] [yellow]AFTER PREINIT[/yellow] [green]▬▬▬▬▬[/green]')
         loguru.logger.trace(self._to_rich_tree())
         self._state = AppState.INIT
         self.__dearfy_init__()
+        self.on_init()
         loguru.logger.trace('[green]▬▬▬▬▬[/green] [yellow]AFTER INIT[/yellow] [green]▬▬▬▬▬[/green]')
         loguru.logger.trace(self._to_rich_tree())
         dpg.setup_dearpygui()
         self._state = AppState.POSTINIT
         self.__dearfy_postinit__()
+        self.after_init()
         loguru.logger.trace('[green]▬▬▬▬▬[/green] [yellow]AFTER POSTINIT[/yellow] [green]▬▬▬▬▬[/green]')
         loguru.logger.trace(self._to_rich_tree())
         self._state = AppState.RUNNING
         dpg.show_viewport(**(self._gkwagrs['show_viewport']))
+        self.on_ready()
         dpg.start_dearpygui()
         dpg.destroy_context()
         self._state = AppState.NONE

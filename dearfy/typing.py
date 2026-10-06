@@ -1,6 +1,20 @@
+import dearpygui.dearpygui as dpg
 from os import PathLike
 from pathlib import Path, PosixPath, WindowsPath, PurePath, PurePosixPath, PureWindowsPath
-from typing_extensions import Any, Iterable, Callable, TypeAlias
+from typing_extensions import Any, Literal, Iterable, Callable, TypeAlias
+
+# ! Constant for Type
+
+FONT_RANGE_HINT: dict[str, int] = {
+    'default': dpg.mvFontRangeHint_Default,
+    'japanese': dpg.mvFontRangeHint_Japanese,
+    'chinese-full': dpg.mvFontRangeHint_Chinese_Full,
+    'chinese-simple': dpg.mvFontRangeHint_Chinese_Simplified_Common,
+    'chinese-simplified-common': dpg.mvFontRangeHint_Chinese_Simplified_Common,
+    'cyrillic': dpg.mvFontRangeHint_Cyrillic,
+    'thai': dpg.mvFontRangeHint_Thai,
+    'vietnamese': dpg.mvFontRangeHint_Vietnamese
+}
 
 # ! Typing
 
@@ -12,6 +26,18 @@ Tag: TypeAlias          = str | int
 Position: TypeAlias     = tuple[int, int] | Iterable[int]
 Size: TypeAlias         = tuple[int, int] | Iterable[int]
 Color: TypeAlias        = tuple[int, int, int, int] | Iterable[int]
+
+FontChar: TypeAlias = int
+FontRange: TypeAlias = tuple[FontChar, FontChar]
+FontRangeHint: TypeAlias = Literal[
+    'default',
+    'japanese',
+    'chinese-full', 'chinese-simple', 'chinese-simplified-common',
+    'cyrillic',
+    'thai',
+    'vietnamese'
+]
+
 
 Callback: TypeAlias     = \
     Callable[[str], Any] | \

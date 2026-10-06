@@ -3,6 +3,12 @@ import logging as std_logging
 # > Local Imports
 from dearfy.logging import LoguruRichHandler, spetific_format_log
 
+# ! Metadata
+
+__name__ = 'dearfy'
+__version__ = '0.1.3a1'
+__author__ = 'peachboy0'
+
 # ! Logging
 
 loguru.logger.configure(
