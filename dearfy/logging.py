@@ -12,7 +12,7 @@ __all__ = [ 'LoguruRichHandler' ]
 # ? Functions
 
 def format_time(time: datetime) -> Text:
-    return Text("[{0.day:02}.{0.month:02}.{0.year:04} {0.hour:02}:{0.minute:02}.{0.second:02}]".format(time), end='')
+    return Text("[{0.day:02}.{0.month:02}.{0.year:04} {0.hour:02}:{0.minute:02}.{0.second:02}.{0.microsecond:03}]".format(time), end='')
 
 # ? Модификация класса RichHandler для более гибкой настройки форматирования
 

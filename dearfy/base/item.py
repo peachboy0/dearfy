@@ -126,12 +126,22 @@ class Item(DOMNode):
         )
 
     def push_item(self, item: Item, *, preparing: bool=True, preinit: bool=True, init: bool=True, postinit: bool=True) -> Tag:
-        if preparing: item.__dearfy_preparing__()
+        if preparing: item.__dearfy_preparing__(self.app)
+        if preinit: item.__dearfy_preinit__()
+        if init: item.__dearfy_init__()
+        self.get_item(self.get_configuration()['parent'])._add_child(item)
+        if postinit: item.__dearfy_postinit__()
+        return item.tag
+
+    def push_item_to(self, item: Item, *, preparing: bool=True, preinit: bool=True, init: bool=True, postinit: bool=True) -> Tag:
+        if preparing: item.__dearfy_preparing__(self.app)
         self._add_child(item)
+        item._config['parent'] = self.tag
         if preinit: item.__dearfy_preinit__()
         if init: item.__dearfy_init__()
         if postinit: item.__dearfy_postinit__()
-    
+        return item.tag
+
     def _move_item_to(self, parent: Tag) -> None:
         loguru.logger.trace(f'Move {self} to {parent!r}')
         old_parent, new_parent = self._node_parent, self.get_item(parent)

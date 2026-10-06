@@ -38,7 +38,6 @@ FontRangeHint: TypeAlias = Literal[
     'vietnamese'
 ]
 
-
 Callback: TypeAlias     = \
     Callable[[str], Any] | \
     Callable[[str], Any] | \

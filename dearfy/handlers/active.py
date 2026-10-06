@@ -1,0 +1,29 @@
+import dearpygui.dearpygui as dpg
+# > Local Imports
+from dearfy.typing import Tag
+from dearfy.functions import get_method_needed
+from dearfy.base.handler import ItemHandler
+
+# ! Activated Handler Class
+
+class ActivatedItemHandler(ItemHandler):
+    REFERENCE_METHOD = dpg.add_item_activated_handler
+
+    def __dearfy_handler_init__(self, parent: Tag) -> None:
+        with dpg.item_handler_registry() as handler:
+            kwargs = get_method_needed(dpg.add_item_activated_handler, **self._config)
+            kwargs.pop('parent', None)
+            self._config['tag'] = dpg.add_item_activated_handler(**kwargs)
+        dpg.bind_item_handler_registry(parent, handler)
+
+# ! Active Handler Class
+
+class ActiveItemHandler(ItemHandler):
+    REFERENCE_METHOD = dpg.add_item_active_handler
+
+    def __dearfy_handler_init__(self, parent: Tag) -> None:
+        with dpg.item_handler_registry() as handler:
+            kwargs = get_method_needed(dpg.add_item_active_handler, **self._config)
+            kwargs.pop('parent', None)
+            self._config['tag'] = dpg.add_item_active_handler(**kwargs)
+        dpg.bind_item_handler_registry(parent, handler)

@@ -1,17 +1,17 @@
 from __future__ import annotations
 
 # > Typing
-from typing_extensions import Any, TypedDict, NotRequired, Callable, Self, Unpack, ParamSpecKwargs
+from typing_extensions import Any, NotRequired, Callable, Self, Unpack, ParamSpecKwargs
 # > Local Imports
 from dearfy.field import field
-from dearfy.base.item import Item
+from dearfy.base.item import Item, ItemKwargs
 from dearfy.base.spetific import Showable
 from dearfy.typing import Tag, Callback
 from dearfy.validator import ValidatorKwargsBase, ValidateKwargsAction
 
 # ! Typing
 
-class ItemHandlerKwargs(TypedDict):
+class ItemHandlerKwargs(ItemKwargs):
     tag: NotRequired[Tag | None]
     parent: NotRequired[Tag | None]
     callback: NotRequired[Callback | None]
@@ -32,7 +32,7 @@ class ItemHandler(Item, Showable):
         parent: Tag | None = None,
         callback: Callback | None = None,
         show: bool = True,
-        **kwargs: Unpack[ItemHandlerKwargs]
+        **kwargs: Unpack[ItemKwargs]
     ) -> None:
         super().__init__(
             parent=field(parent, 0, nullable=False),
