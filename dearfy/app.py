@@ -1,14 +1,18 @@
-import loguru
 from enum import Enum
+
 import dearpygui.dearpygui as dpg
+import loguru
+
 # > Typing
-from typing_extensions import TypeAlias, Iterator
+from typing_extensions import Iterator, TypeAlias  # noqa: UP035
+
+from dearfy.action import Action, Actioner
+
 # > Local Imports
-from dearfy.base import Item, DOMNode
-from dearfy.typing import Color, FilePath, Tag
+from dearfy.base import DOMNode, Item
 from dearfy.field import field
-from dearfy.action import Actioner, Action
 from dearfy.functions import formatting_kwargs, get_method_needed
+from dearfy.typing import Color, FilePath, Tag
 
 # ! Types
 
@@ -168,23 +172,18 @@ class App(DOMNode):
 
     def on_ready(self) -> None:
         """Called after full initialization, before the main loop starts."""
-        pass
 
     def on_preparing(self) -> None:
         """Called before initialization, when the context has NOT yet been created."""
-        pass
 
     def on_init(self) -> None:
         """Called during initialization."""
-        pass
 
     def after_init(self) -> None:
         """Called after initialization (postinit)."""
-        pass
 
     def before_init(self) -> None:
         """Called before initialization, but after the context has ALREADY been created."""
-        pass
 
     def run(self) -> None:
         self._state = AppState.PREPARING

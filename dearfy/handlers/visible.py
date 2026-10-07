@@ -1,8 +1,8 @@
 import dearpygui.dearpygui as dpg
-# > Local Imports
-from dearfy.typing import Tag
-from dearfy.functions import get_method_needed
+
 from dearfy.base.handler import ItemHandler
+from dearfy.functions import get_method_needed
+from dearfy.typing import Tag
 
 # ! Visible Item Handler Class
 

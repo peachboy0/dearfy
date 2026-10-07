@@ -1,14 +1,13 @@
-import loguru
-import dearpygui.dearpygui as dpg
-# > System
 from pathlib import Path
-# > Dearfy
-from dearfy.field import field
+
+import dearpygui.dearpygui as dpg
+import loguru
+from typing_extensions import Iterable, Unpack, deprecated  # noqa: UP035
+
 from dearfy.base import Item, ItemKwargs
+from dearfy.field import field
 from dearfy.functions import get_method_needed
-from dearfy.typing import Tag, FilePath, FontChar, FontRange, FontRangeHint, FONT_RANGE_HINT
-# > Local Imports
-from typing_extensions import Unpack, Iterable, deprecated
+from dearfy.typing import FONT_RANGE_HINT, FilePath, FontChar, FontRange, FontRangeHint, Tag
 
 # ! Font Class
 

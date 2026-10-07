@@ -1,10 +1,9 @@
 import dearpygui.dearpygui as dpg
-# > Local Imports
-from dearfy.typing import Tag
-from dearfy.functions import get_method_needed
-from dearfy.base.handler import ItemHandler, ItemHandlerKwargs
-# > Typing
 from typing_extensions import Unpack
+
+from dearfy.base.handler import ItemHandler, ItemHandlerKwargs
+from dearfy.functions import get_method_needed
+from dearfy.typing import Tag
 
 # ! Toggle Open Item Handler Class
 

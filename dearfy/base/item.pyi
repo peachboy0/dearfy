@@ -1,7 +1,7 @@
 from collections import deque
-# > Typing
-from typing_extensions import Any, TypedDict, NotRequired, Callable, ParamSpecKwargs, ClassVar, TypeAlias
-# > Local Imports
+
+from typing_extensions import Any, Callable, ClassVar, NotRequired, ParamSpecKwargs, TypeAlias, TypedDict  # noqa: UP035
+
 from dearfy.app import App
 from dearfy.base.domnode import DOMNode
 from dearfy.typing import Tag

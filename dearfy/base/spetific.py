@@ -1,11 +1,10 @@
 from __future__ import annotations
 
 import dearpygui.dearpygui as dpg
-# > Local Imports
+from typing_extensions import Generic, TypeVar  # noqa: UP035
+
 from dearfy.base.item import Item
 from dearfy.base.require_bases import RequireBasesMeta, require_bases
-# > Typing
-from typing_extensions import Generic, TypeVar
 
 # ! Type Vars
 

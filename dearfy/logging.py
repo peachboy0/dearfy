@@ -1,10 +1,10 @@
 import re
 from io import StringIO
-from rich.logging import *
+
 from rich.console import Console, RenderableType
-# > Typing
-from typing_extensions import Iterable, Iterator
-# > Local Imports
+from rich.logging import *
+from typing_extensions import Iterable, Iterator  # noqa: UP035
+
 from dearfy.functions import get_object_by_address
 
 __all__ = [ 'LoguruRichHandler' ]
@@ -12,7 +12,7 @@ __all__ = [ 'LoguruRichHandler' ]
 # ? Functions
 
 def format_time(time: datetime) -> Text:
-    return Text("[{0.day:02}.{0.month:02}.{0.year:04} {0.hour:02}:{0.minute:02}.{0.second:02}.{0.microsecond:03}]".format(time), end='')
+    return Text(f"[{time.day:02}.{time.month:02}.{time.year:04} {time.hour:02}:{time.minute:02}.{time.second:02}.{time.microsecond:03}]", end='')
 
 # ? Модификация класса RichHandler для более гибкой настройки форматирования
 
@@ -109,7 +109,7 @@ class Richer:
             try:
                 rendered = self.render_rich_object(get_object_by_address(int(result.group('addr'), 16)))
                 message = message[:result.start()] + rendered + message[result.end():]
-            except:
+            except:  # noqa: E722, S110
                 pass
         return message
 

@@ -1,15 +1,17 @@
+from typing_extensions import ClassVar, Iterable, Iterator, TypeAlias  # noqa: UP035
 
-# > Typing
-from typing_extensions import TypeAlias, Iterable, Iterator, ClassVar
-# > Local Imports
-from dearfy.base import Item, DOMNode
-from dearfy.typing import Color, FilePath, Tag
 from dearfy.action import (
-    Actioner, Action,
-    ActionBlockMode, ActionBlockModeLiteral, 
-    ActionCallMode, ActionCallModeLiteral,
-    ActionName, ActionGroup
+    Action,
+    ActionBlockMode,
+    ActionBlockModeLiteral,
+    ActionCallMode,
+    ActionCallModeLiteral,
+    Actioner,
+    ActionGroup,
+    ActionName,
 )
+from dearfy.base import DOMNode, Item
+from dearfy.typing import Color, FilePath, Tag
 
 # ! Types
 
@@ -46,7 +48,7 @@ class App(DOMNode):
         minimized: bool = False,
         maximized: bool = False
     ) -> None:
-        """Base class for describing an application.
+        r"""Base class for describing an application.
 
         Args:
             title (str, optional): Sets the title of the viewport. Defaults to 'Dearfy Viewport'.
@@ -69,7 +71,6 @@ class App(DOMNode):
             minimized (bool, optional): Sets the state of the viewport to minimized. Defaults to False.
             maximized (bool, optional): Sets the state of the viewport to maximized. Defaults to False.
         """
-        ...
     
     def compose(self) -> ComposeResult: ...
 
@@ -81,23 +82,18 @@ class App(DOMNode):
 
     def on_ready(self) -> None:
         """Called after full initialization, before the main loop starts."""
-        ...
 
     def on_preparing(self) -> None:
         """Called before initialization, when the context has NOT yet been created."""
-        ...
 
     def on_init(self) -> None:
         """Called during initialization."""
-        ...
     
     def after_init(self) -> None:
         """Called after initialization (postinit)."""
-        ...
 
     def before_init(self) -> None:
         """Called before initialization, but after the context has ALREADY been created."""
-        ...
 
     def get_item(self, tag: Tag) -> Item: ...
 
@@ -108,19 +104,14 @@ class App(DOMNode):
 
     def show_font_manager(self) -> None:
         """Shows a debug tool for the font manager."""
-        ...
     def show_about(self) -> None:
         """Shows the standard about window."""
-        ...
     def show_metrics(self) -> None:
         """Shows the standard metrics window."""
-        ...
     def show_item_registry(self) -> None:
         """Shows the item hierarchy of your application."""
-        ...
     def show_debug(self) -> None:
         """Shows the standard debug window."""
-        ...
 
     def run(self) -> None: ...
 

@@ -1,10 +1,9 @@
 import ctypes
 import inspect
-from re import I
+
 import dearpygui.dearpygui as dpg
-# > Typing
-from typing_extensions import Any, Literal, Iterable, Iterator,  Callable, TypeIs, TypeVar
-# > Local Imports
+from typing_extensions import Any, Callable, Iterable, Literal, TypeVar  # noqa: UP035
+
 from dearfy.typing import Tag
 
 # ! Types
@@ -75,7 +74,7 @@ def match_item_position(
     padding = padding[:4]
     # * Getting
     item_width, item_height = get_item_size(item, wait=wait)
-    vp_width, vp_height = dpg.get_viewport_width(), dpg.get_viewport_height()
+    #vp_width, vp_height = dpg.get_viewport_width(), dpg.get_viewport_height()
     if (item_width >= 1) and (item_height >= 1):
         pass
     else:
@@ -96,9 +95,9 @@ def match_item_position(
 
 # ! Low-level Methods
 
-def get_object_by_address(__object_address: int) -> Any:
+def get_object_by_address(__object_address: int, /) -> Any:
     """Get any python object, by its address (the address that is printed when the `id(object)` method is called).
-    ##### !!! WARNING !!! The method is unsafe and may cause unexpected errors (`RuntimeError`).
+    ### !!! WARNING !!! The method is unsafe and may cause unexpected errors (`RuntimeError`).
 
     Args:
         __object_address (int): The address that is getted when the `id(object)` method is called.

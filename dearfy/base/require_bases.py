@@ -1,7 +1,6 @@
 from __future__ import annotations
 
-# > Typing
-from typing_extensions import Any, Callable, TypeVar, get_type_hints, Annotated
+from typing_extensions import Annotated, Any, Callable, TypeVar, get_type_hints  # noqa: UP035
 
 # ! Types
 

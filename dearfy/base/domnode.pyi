@@ -1,12 +1,12 @@
-from rich.tree import Tree
 from collections import deque
-# > Typing
 from types import TracebackType
-from typing_extensions import Any, Iterator, Self, TypeVar, ClassVar
+
+from rich.tree import Tree
+from typing_extensions import Any, ClassVar, Iterator, Self, TypeVar  # noqa: UP035
 
 # ! Type Vars
 
-T = TypeVar('T')
+T = TypeVar('T')  # noqa: PYI001
 
 # ! DOM Node Class
 
@@ -19,9 +19,6 @@ class DOMNode:
     _node_children: list[DOMNode]
 
     def __init__(self) -> None: ...
-    
-    def __str__(self) -> str: ...
-    def __repr__(self) -> str: ...
     
     def __enter__(self) -> Self: ...
     def __exit__(self, exc_type: type[BaseException] | None, exc_val: BaseException | None, exc_tb: TracebackType | None) -> None: ...

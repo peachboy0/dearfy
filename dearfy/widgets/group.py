@@ -1,12 +1,11 @@
 import dearpygui.dearpygui as dpg
-# > Dearfy
-from dearfy.field import field
-from dearfy.typing import Tag, Callback, Position
-from dearfy.base import Item, ItemKwargs, Enableable, Showable
-from dearfy.functions import get_method_needed
-from dearfy.validator import ValidateKwargsAction
-# > Local Imports
 from typing_extensions import Unpack
+
+from dearfy.base import Enableable, Item, ItemKwargs, Showable
+from dearfy.field import field
+from dearfy.functions import get_method_needed
+from dearfy.typing import Callback, Position, Tag
+from dearfy.validator import ValidateKwargsAction
 
 # ! Group Class
 
@@ -64,7 +63,6 @@ class Group(Item, Enableable, Showable):
             kwargs = get_method_needed(dpg.add_group, **self._config)
             with dpg.group(**kwargs) as tag:
                 super().__dearfy_init__()
-            tag = tag
         else:
             kwargs = get_method_needed(dpg.add_group, **self._config)
             tag = dpg.add_group(**kwargs)

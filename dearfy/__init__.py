@@ -1,6 +1,7 @@
-import loguru
 import logging as std_logging
-# > Local Imports
+
+import loguru
+
 from dearfy.logging import LoguruRichHandler, spetific_format_log
 
 # ! Metadata

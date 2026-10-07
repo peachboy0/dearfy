@@ -1,7 +1,18 @@
-import dearpygui.dearpygui as dpg
 from os import PathLike
-from pathlib import Path, PosixPath, WindowsPath, PurePath, PurePosixPath, PureWindowsPath
-from typing_extensions import Any, Literal, Iterable, Callable, TypeAlias
+from pathlib import Path, PosixPath, PurePath, PurePosixPath, PureWindowsPath, WindowsPath
+
+import dearpygui.dearpygui as dpg
+from typing_extensions import Any, Callable, Iterable, Literal, LiteralString, TypeAlias, deprecated  # noqa: UP035
+
+# ! Warning Types
+
+class ExperimentalWarning(Warning):
+    pass
+
+class experimental(deprecated):
+    def __init__(self, message: LiteralString, /, *, category: type[Warning] | None = None, stacklevel: int = 1):
+        _category = category if (category is not None) else ExperimentalWarning
+        super().__init__(message, category=_category, stacklevel=stacklevel)
 
 # ! Constant for Type
 
@@ -39,8 +50,4 @@ FontRangeHint: TypeAlias = Literal[
 ]
 
 Callback: TypeAlias     = \
-    Callable[[str], Any] | \
-    Callable[[str], Any] | \
-    Callable[[str, Any | None], Any] | \
-    Callable[[str, Any | None, Any | None], Any] | \
-    str | tuple[str, str]
+    Callable[[str], Any] | Callable[[str, Any | None], Any] | Callable[[str, Any | None, Any | None], Any] | str | tuple[str, str]

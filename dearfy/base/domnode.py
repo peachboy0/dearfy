@@ -1,17 +1,17 @@
 from __future__ import annotations
 
-from rich.tree import Tree
 from collections import deque
-# > Typing
 from types import TracebackType
-from typing_extensions import Any, Iterator, Self
+
+from rich.tree import Tree
+from typing_extensions import Any, ClassVar, Iterator, Self  # noqa: UP035
 
 # ! DOM Node Class
 
 class DOMNode:
     NODE_CONTAINERABLE: bool = True
 
-    _nodes: deque[DOMNode] = deque()
+    _nodes: ClassVar[deque[DOMNode]] = deque()
 
     def __init__(self) -> None:
         self._node_children: list[DOMNode] = []
@@ -70,11 +70,11 @@ class DOMNode:
         return self._node_children.pop(__index)
     
     def _get_node_by_attr(self, __attr_name: str, __attr_value: Any, /) -> DOMNode:
-        if hasattr(self, __attr_name):
+        if hasattr(self, __attr_name):  # noqa: SIM102
             if getattr(self, __attr_name) == __attr_value:
                 return self
         for node in self._node_children:
-            if hasattr(node, __attr_name):
+            if hasattr(node, __attr_name):  # noqa: SIM102
                 if getattr(node, __attr_name) == __attr_value:
                     return node
         for node in self._node_children:

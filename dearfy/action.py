@@ -1,17 +1,18 @@
-import loguru
-import inspect
 import datetime
+import inspect
 import threading
 from enum import Enum, Flag, auto
-# > Typing
-from typing_extensions import (
+
+import loguru
+from typing_extensions import (  # noqa: UP035
     Any,
-    Iterable,
     Callable,
+    Iterable,
     Literal,
-    TypeAlias, TypeVar,
+    TypeAlias,
+    TypeVar,
 )
-# > Local Imports
+
 from dearfy.typing import Tag
 
 # ! Types
@@ -43,14 +44,14 @@ class ActionBlockMode(Enum):
     GROUP = 2
     SPETIFIC = 3
 
-ActionCallModeLiteral: TypeAlias = Literal['one', 'many'] | Literal[0, 1]
-ActionBlockModeLiteral: TypeAlias = Literal['none', 'all', 'group', 'spetific'] | Literal[0, 1, 2, 3]
+ActionCallModeLiteral: TypeAlias = Literal['one', 'many', 0, 1]
+ActionBlockModeLiteral: TypeAlias = Literal['none', 'all', 'group', 'spetific', 0, 1, 2, 3]
 
 def __sample_action_method__(sender: Tag, app_data: dict[str, Any] | str, user_data: Any | None) -> Any: ...
 
 def _match_call_args(self: object | None, method: ActionMethod, *args: object) -> tuple[object, ...]:
     params = list(inspect.signature(method).parameters.keys())
-    if self is not None:
+    if self is not None:  # noqa: SIM102
         if ('self' in params) or ('app' in params):
             return (self, *(args[:len(params) - 1]))
     return args[:len(params)]
@@ -67,8 +68,7 @@ def validate_enum(enum_type: type[T], value: ActionBlockMode | str | int) -> T:
 # ! Action Class
 
 class Action:
-    def __init__(
-        self,
+    def __init__(self,
         parent: 'Actioner',
         name: str,
         method: ActionMethod,
@@ -104,7 +104,7 @@ class Action:
         return hash(self.__indeficator)
     
     def __eq__(self, other: 'Action | tuple[ActionName, ActionGroup]') -> bool:
-        if not (isinstance(other, Action) or isinstance(other, tuple)):
+        if not (isinstance(other, Action) or isinstance(other, tuple)):  # noqa: SIM101
             return False
         return hash(self) == hash(other)
     
@@ -146,7 +146,7 @@ class Action:
                     if isinstance(blocked_iderficator, str):
                         if blocked_iderficator == self.__name:
                             return True
-                    elif isinstance(blocked_iderficator, tuple):
+                    elif isinstance(blocked_iderficator, tuple):  # noqa: SIM102
                         if blocked_iderficator == self.__indeficator:
                             return True
         return False
@@ -173,42 +173,39 @@ class Action:
     
     # ^ Call Methods
 
-    def __call_main__(
-        self,
+    def __call_main__(self,
         sender: Tag,
         app_data: dict[str, Any] | str | None,
         user_data: Any | None=None
     ) -> Any | None:
         self.state |= ActionState.RUNNING
-        self.last_call = datetime.datetime.now()
+        self.last_call = datetime.datetime.now()  # noqa: DTZ005
         self.actions.set_block(True, self.indeficator, self.blockmode, self.blocks)
         try:
             result = self.method(*_match_call_args(self.actions._app, self.method, sender, app_data, user_data))
-        except:
+        except:  # noqa: E722
             result = None
             loguru.logger.exception('An error has occurred in action!')
         self.actions.set_block(False, self.indeficator, self.blockmode, self.blocks)
         self.state &= ~ActionState.RUNNING
         return result
     
-    def __call_thread__(
-        self,
+    def __call_thread__(self,
         sender: Tag,
         app_data: dict[str, Any] | str | None,
         user_data: Any | None=None
     ) -> None:
         self.state |= ActionState.RUNNING
-        self.last_call = datetime.datetime.now()
+        self.last_call = datetime.datetime.now()  # noqa: DTZ005
         self.actions.set_block(True, self.indeficator, self.blockmode, self.blocks)
         try:
             self.method(*_match_call_args(self.actions._app, self.method, sender, app_data, user_data))
-        except:
+        except:  # noqa: E722
             loguru.logger.exception('An error has occurred in action!')
         self.actions.set_block(False, self.indeficator, self.blockmode, self.blocks)
         self.state &= ~ActionState.RUNNING
 
-    def __call__(
-        self,
+    def __call__(self,
         sender: Tag,
         app_data: dict[str, Any] | str | None,
         user_data: Any | None=None
@@ -226,7 +223,7 @@ class Action:
             if not self.can_call():
                 loguru.logger.trace(f"[yellow]Cancel[/yellow] action <{self.__indeficator}> because the call is not currently available.")
                 return
-            if self.__thread is not None:
+            if self.__thread is not None:  # noqa: SIM102
                 if self.__thread.is_alive():
                     loguru.logger.trace(f"[yellow]Cancel[/yellow] action <{self.__indeficator}> because the previous call [gray bold]in the thread[/gray bold] has not yet ended.")
                     return
@@ -252,8 +249,7 @@ class Actioner:
     def __repr__(self) -> str:
         return self.__str__()
     
-    def set_block(
-        self,
+    def set_block(self,
         value: bool,
         blocker_action: tuple[ActionName, ActionGroup],
         blockmode: ActionBlockMode,
@@ -271,15 +267,14 @@ class Actioner:
     
     def get(self, key: ActionIndeficator | ActionName, default: T=None) -> Action | T:
         if isinstance(key, str):
-            for action_indeficator in self.actions.copy().keys():
+            for action_indeficator in self.actions.copy():
                 if action_indeficator[0] == key:
                     return self.actions[action_indeficator]
         elif isinstance(key, tuple):
             return self.actions[key]
         return default
     
-    def action(
-        self,
+    def action(self,
         name: str,
         group: str='main',
         callmode: ActionCallModeLiteral | ActionCallMode = ActionCallMode.MANY,
@@ -293,8 +288,7 @@ class Actioner:
             return action
         return wrapper
     
-    def add_action(
-        self,
+    def add_action(self,
         method: ActionMethod,
         name: str,
         group: str='main',

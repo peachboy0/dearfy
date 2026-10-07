@@ -1,15 +1,13 @@
 from __future__ import annotations
 
-import loguru
-
 import dearpygui.dearpygui as dpg
-# > Typing
-from typing_extensions import Any, TypedDict, Callable, ParamSpecKwargs, NotRequired, TypeAlias
-# > Local Imports
-from dearfy.field import field
+import loguru
+from typing_extensions import Any, Callable, NotRequired, ParamSpecKwargs, TypeAlias, TypedDict  # noqa: UP035
+
 from dearfy.base.domnode import DOMNode
-from dearfy.typing import Tag
+from dearfy.field import field
 from dearfy.functions import formatting_kwargs, get_method_needed
+from dearfy.typing import Tag
 from dearfy.validator import ValidatorKwargsBase
 
 # ! Typing

@@ -19,3 +19,15 @@ dependencies = [
 dev = [
     "uv>=0.12.3",
 ]
+
+[tool.ruff]
+# Увеличьте длину строки, так как кириллические символы визуально длиннее
+line-length = 120
+
+[tool.ruff.lint]
+# Исключите предупреждения о не-ASCII символах в строках и комментариях (правило RUF001, RUF002, RUF003)
+ignore = [
+    "RUF001", # String contains ambiguous cyrillic letter
+    "RUF002", # Docstring contains ambiguous cyrillic letter
+    "RUF003", # Comment contains ambiguous cyrillic letter
+]

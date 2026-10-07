@@ -1,11 +1,10 @@
 import dearpygui.dearpygui as dpg
-# > Typing
 from typing_extensions import Unpack
-# > Local Imports
-from dearfy.field import field
-from dearfy.typing import Size, Callback, Position
+
 from dearfy.base import Item, ItemKwargs, Showable
+from dearfy.field import field
 from dearfy.functions import get_method_needed
+from dearfy.typing import Callback, Position, Size
 from dearfy.validator import ValidateKwargsAction
 
 # ! Window Class
@@ -84,7 +83,6 @@ class Window(Item, Showable):
             kwargs = get_method_needed(dpg.add_window, **self._config)
             with dpg.window(**kwargs) as tag:
                 super().__dearfy_init__()
-            tag = tag
         else:
             kwargs = get_method_needed(dpg.add_window, **self._config)
             tag = dpg.add_window(**kwargs)
