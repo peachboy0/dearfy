@@ -6,6 +6,9 @@ from dearfy.handlers.edited import EditedItemHandler
 from dearfy.handlers.focus import FocusItemHandler
 from dearfy.handlers.resize import ResizeItemHandler
 from dearfy.handlers.hover import HoverItemHandler
+from dearfy.handlers.scroll import ScrollItemHandler
+from dearfy.handlers.visible import VisibleItemHandler
+from dearfy.handlers.toggled_open import ToggleOpenItemHandler
 
 __all__ = [
     'ClickedItemHandler', 'DoubleClickedItemHandler',
@@ -14,12 +17,8 @@ __all__ = [
     'EditedItemHandler',
     'FocusItemHandler',
     'ResizeItemHandler',
-    'HoverItemHandler'
+    'HoverItemHandler',
+    'ScrollItemHandler',
+    'VisibleItemHandler',
+    'ToggleOpenItemHandler'
 ]
-
-# TODO: Needed!
-# // 1. dpg.add_item_hover_handler (hover.py)
-# ** 2. dpg.add_item_scroll_handler (scroll.py)
-# // 3. dpg.add_item_active_handler (active.py)
-# ** 4. dpg.add_item_toggled_open_handler (toggled_open.py)
-# ** 5. dpg.add_item_visible_handler (visible.py)

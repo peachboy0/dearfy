@@ -1,6 +1,6 @@
 [project]
 name = "dearfy"
-version = "0.1.5a1"
+version = "0.1.6a1"
 description = "A library for simplifying the creation of complex GUIs using DearPyGUI."
 authors = [
     {name = "Romanin", email = "semina054@gmail.com"}
