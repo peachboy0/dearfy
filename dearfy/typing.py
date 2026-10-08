@@ -2,12 +2,22 @@ from os import PathLike
 from pathlib import Path, PosixPath, PurePath, PurePosixPath, PureWindowsPath, WindowsPath
 
 import dearpygui.dearpygui as dpg
-from typing_extensions import Any, Callable, Iterable, Literal, TypeAlias  # noqa: UP035
+from typing_extensions import Any, Callable, Iterable, Literal, Protocol, TypeAlias  # noqa: UP035
 
 # ! Warning Types
 
 class ExperimentalWarning(Warning):
     pass
+
+# ! Protocols
+
+class DearfyObject(Protocol):
+    def __dearfy_preparing__(self, app: object) -> None: ...
+    def __dearfy_preinit__(self) -> None: ...
+    def __dearfy_init__(self) -> None: ...
+    def __dearfy_postinit__(self) -> None: ...
+    def __dearfy_destroy__(self) -> None: ...
+
 
 # ! Constant for Type
 

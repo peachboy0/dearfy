@@ -15,9 +15,9 @@ from dearfy.typing import Color, FilePath, Tag
 
 # ! Types
 
-ComposeResult: TypeAlias = Iterator[Item] | Generator[Item, Any, Any] | Iterable[Item]
+ComposeResult: TypeAlias = Iterator[Item]
 ComposeMethod: TypeAlias = Callable[[], Iterator[Item]]
-Composable: TypeAlias = Item | ComposeResult | ComposeMethod
+Composable: TypeAlias = Item | ComposeResult | Generator[Item, Any, Any] | Iterable[Item] | ComposeMethod
 
 # ! App Base Class
 

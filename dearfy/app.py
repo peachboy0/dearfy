@@ -9,13 +9,13 @@ from dearfy.action import Action, Actioner
 from dearfy.base import DOMNode, Item
 from dearfy.field import field
 from dearfy.functions import formatting_kwargs, get_method_needed
-from dearfy.typing import Color, FilePath, Tag
+from dearfy.typing import Color, FilePath, Tag, DearfyObject
 
 # ! Types
 
-ComposeResult: TypeAlias = Iterator[Item] | Generator[Item, Any, Any] | Iterable[Item]
+ComposeResult: TypeAlias = Iterator[Item]
 ComposeMethod: TypeAlias = Callable[[], Iterator[Item]]
-Composable: TypeAlias = Item | ComposeResult | ComposeMethod
+Composable: TypeAlias = Item | ComposeResult | Generator[Item, Any, Any] | Iterable[Item] | ComposeMethod
 
 # ! States
 
@@ -113,18 +113,22 @@ class App(DOMNode):
     def __dearfy_preparing__(self) -> None:
         for child in self._node_children:
             child.__dearfy_preparing__(self)
+        self.on_preparing()
 
     def __dearfy_preinit__(self) -> None:
         for child in self._node_children:
             child.__dearfy_preinit__()
+        self.before_init()
     
     def __dearfy_init__(self) -> None:
         for child in self._node_children:
             child.__dearfy_init__()
+        self.on_init()
     
     def __dearfy_postinit__(self) -> None:
         for child in self._node_children:
             child.__dearfy_postinit__()
+        self.after_init()
     
     def __dearfy_destroy__(self) -> None:
         for child in self._node_children:
@@ -140,46 +144,41 @@ class App(DOMNode):
             f"_node_main_parent={self._node_main_parent!r}"
         )
 
+    @staticmethod
+    def _dearfy_obejct_init(app: 'App', obj: DearfyObject) -> None:
+        if not bool(obj._state & 0b0001):           obj.__dearfy_preparing__(app)
+        if not bool((obj._state & 0b0010) >> 1):    obj.__dearfy_preinit__()
+        if not bool((obj._state & 0b0100) >> 2):    obj.__dearfy_init__()
+        if not bool((obj._state & 0b1000) >> 3):    obj.__dearfy_postinit__()
+
     def push_item_to(self, obj: Composable, *, parent: Tag | None = None) -> None:
         parent_item: Item | App = self._get_node_by_attr('tag', parent) if parent is not None else self
         if isinstance(obj, Item):
             if parent is not None:
                 obj._config['parent'] = parent
             parent_item._add_child(obj)
-            if not bool(obj._state & 0b0001):           obj.__dearfy_preparing__(self)
-            if not bool((obj._state & 0b0010) >> 1):    obj.__dearfy_preinit__()
-            if not bool((obj._state & 0b0100) >> 2):    obj.__dearfy_init__()
-            if not bool((obj._state & 0b1000) >> 3):    obj.__dearfy_postinit__()
+            self._dearfy_obejct_init(self, obj)
             return
         elif isinstance(obj, (Iterator, Iterable, Generator)):
             for item in obj:
                 if parent is not None:
                     item._config['parent'] = parent
                 parent_item._add_child(item)
-                if not bool(item._state & 0b0001):          item.__dearfy_preparing__(self)
-                if not bool((item._state & 0b0010) >> 1):   item.__dearfy_preinit__()
-                if not bool((item._state & 0b0100) >> 2):   item.__dearfy_init__()
-                if not bool((item._state & 0b1000) >> 3):   item.__dearfy_postinit__()
+                self._dearfy_obejct_init(self, item)
             return
         elif inspect.isgeneratorfunction(obj):
             for item in obj():
                 if parent is not None:
                     item._config['parent'] = parent
                 parent_item._add_child(item)
-                if not bool(item._state & 0b0001):          item.__dearfy_preparing__(self)
-                if not bool((item._state & 0b0010) >> 1):   item.__dearfy_preinit__()
-                if not bool((item._state & 0b0100) >> 2):   item.__dearfy_init__()
-                if not bool((item._state & 0b1000) >> 3):   item.__dearfy_postinit__()
+                self._dearfy_obejct_init(self, item)
             return
         elif inspect.isgenerator(obj):
             for item in obj:
                 if parent is not None:
                     item._config['parent'] = parent
                 parent_item._add_child(item)
-                if not bool(item._state & 0b0001):          item.__dearfy_preparing__(self)
-                if not bool((item._state & 0b0010) >> 1):   item.__dearfy_preinit__()
-                if not bool((item._state & 0b0100) >> 2):   item.__dearfy_init__()
-                if not bool((item._state & 0b1000) >> 3):   item.__dearfy_postinit__()
+                self._dearfy_obejct_init(self, item)
             return
         raise RuntimeWarning(f"Couldn't get Item from the object ({obj}).")
 
@@ -233,25 +232,21 @@ class App(DOMNode):
     def run(self) -> None:
         self._state = AppState.PREPARING
         self.__dearfy_preparing__()
-        self.on_preparing()
         loguru.logger.trace('[green]▬▬▬▬▬[/green] [yellow]AFTER PREPARING[/yellow] [green]▬▬▬▬▬[/green]')
         loguru.logger.trace(self._to_rich_tree())
         dpg.create_context()
         dpg.create_viewport(**(self._gkwagrs['create_viewport']))
         self._state = AppState.PREINIT
         self.__dearfy_preinit__()
-        self.before_init()
         loguru.logger.trace('[green]▬▬▬▬▬[/green] [yellow]AFTER PREINIT[/yellow] [green]▬▬▬▬▬[/green]')
         loguru.logger.trace(self._to_rich_tree())
         self._state = AppState.INIT
         self.__dearfy_init__()
-        self.on_init()
         loguru.logger.trace('[green]▬▬▬▬▬[/green] [yellow]AFTER INIT[/yellow] [green]▬▬▬▬▬[/green]')
         loguru.logger.trace(self._to_rich_tree())
         dpg.setup_dearpygui()
         self._state = AppState.POSTINIT
         self.__dearfy_postinit__()
-        self.after_init()
         loguru.logger.trace('[green]▬▬▬▬▬[/green] [yellow]AFTER POSTINIT[/yellow] [green]▬▬▬▬▬[/green]')
         loguru.logger.trace(self._to_rich_tree())
         self._state = AppState.RUNNING
@@ -263,4 +258,4 @@ class App(DOMNode):
         self.__dearfy_destroy__()
         loguru.logger.trace(self._to_rich_tree())
 
-action = App._actioner.action
+action = App._actioner.action 
