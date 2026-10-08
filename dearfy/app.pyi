@@ -1,4 +1,4 @@
-from typing_extensions import ClassVar, Iterable, Iterator, TypeAlias  # noqa: UP035
+from typing_extensions import Any, Callable, ClassVar, Generator, Iterable, Iterator, TypeAlias  # noqa: UP035
 
 from dearfy.action import (
     Action,
@@ -15,7 +15,9 @@ from dearfy.typing import Color, FilePath, Tag
 
 # ! Types
 
-ComposeResult: TypeAlias = Iterator[Item]
+ComposeResult: TypeAlias = Iterator[Item] | Generator[Item, Any, Any] | Iterable[Item]
+ComposeMethod: TypeAlias = Callable[[], Iterator[Item]]
+Composable: TypeAlias = Item | ComposeResult | ComposeMethod
 
 # ! App Base Class
 
@@ -96,6 +98,9 @@ class App(DOMNode):
         """Called before initialization, but after the context has ALREADY been created."""
 
     def get_item(self, tag: Tag) -> Item: ...
+
+    def push_item_to(self, obj: Composable, *, parent: Tag | None = None) -> None: ...
+    def push_item(self, obj: Composable) -> None: ...
 
     def set_primary_window(self, window: Tag, value: bool) -> None: ...
     

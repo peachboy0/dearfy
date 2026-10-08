@@ -2,17 +2,12 @@ from os import PathLike
 from pathlib import Path, PosixPath, PurePath, PurePosixPath, PureWindowsPath, WindowsPath
 
 import dearpygui.dearpygui as dpg
-from typing_extensions import Any, Callable, Iterable, Literal, LiteralString, TypeAlias, deprecated  # noqa: UP035
+from typing_extensions import Any, Callable, Iterable, Literal, TypeAlias  # noqa: UP035
 
 # ! Warning Types
 
 class ExperimentalWarning(Warning):
     pass
-
-class experimental(deprecated):
-    def __init__(self, message: LiteralString, /, *, category: type[Warning] | None = None, stacklevel: int = 1):
-        _category = category if (category is not None) else ExperimentalWarning
-        super().__init__(message, category=_category, stacklevel=stacklevel)
 
 # ! Constant for Type
 

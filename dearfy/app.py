@@ -1,14 +1,11 @@
+import inspect
 from enum import Enum
 
 import dearpygui.dearpygui as dpg
 import loguru
-
-# > Typing
-from typing_extensions import Iterator, TypeAlias  # noqa: UP035
+from typing_extensions import Any, Callable, Generator, Iterable, Iterator, TypeAlias  # noqa: UP035
 
 from dearfy.action import Action, Actioner
-
-# > Local Imports
 from dearfy.base import DOMNode, Item
 from dearfy.field import field
 from dearfy.functions import formatting_kwargs, get_method_needed
@@ -16,7 +13,9 @@ from dearfy.typing import Color, FilePath, Tag
 
 # ! Types
 
-ComposeResult: TypeAlias = Iterator[Item]
+ComposeResult: TypeAlias = Iterator[Item] | Generator[Item, Any, Any] | Iterable[Item]
+ComposeMethod: TypeAlias = Callable[[], Iterator[Item]]
+Composable: TypeAlias = Item | ComposeResult | ComposeMethod
 
 # ! States
 
@@ -140,6 +139,52 @@ class App(DOMNode):
             "There is no Item with this tag. "
             f"_node_main_parent={self._node_main_parent!r}"
         )
+
+    def push_item_to(self, obj: Composable, *, parent: Tag | None = None) -> None:
+        parent_item: Item | App = self._get_node_by_attr('tag', parent) if parent is not None else self
+        if isinstance(obj, Item):
+            if parent is not None:
+                obj._config['parent'] = parent
+            parent_item._add_child(obj)
+            if not bool(obj._state & 0b0001):           obj.__dearfy_preparing__(self)
+            if not bool((obj._state & 0b0010) >> 1):    obj.__dearfy_preinit__()
+            if not bool((obj._state & 0b0100) >> 2):    obj.__dearfy_init__()
+            if not bool((obj._state & 0b1000) >> 3):    obj.__dearfy_postinit__()
+            return
+        elif isinstance(obj, (Iterator, Iterable, Generator)):
+            for item in obj:
+                if parent is not None:
+                    item._config['parent'] = parent
+                parent_item._add_child(item)
+                if not bool(item._state & 0b0001):          item.__dearfy_preparing__(self)
+                if not bool((item._state & 0b0010) >> 1):   item.__dearfy_preinit__()
+                if not bool((item._state & 0b0100) >> 2):   item.__dearfy_init__()
+                if not bool((item._state & 0b1000) >> 3):   item.__dearfy_postinit__()
+            return
+        elif inspect.isgeneratorfunction(obj):
+            for item in obj():
+                if parent is not None:
+                    item._config['parent'] = parent
+                parent_item._add_child(item)
+                if not bool(item._state & 0b0001):          item.__dearfy_preparing__(self)
+                if not bool((item._state & 0b0010) >> 1):   item.__dearfy_preinit__()
+                if not bool((item._state & 0b0100) >> 2):   item.__dearfy_init__()
+                if not bool((item._state & 0b1000) >> 3):   item.__dearfy_postinit__()
+            return
+        elif inspect.isgenerator(obj):
+            for item in obj:
+                if parent is not None:
+                    item._config['parent'] = parent
+                parent_item._add_child(item)
+                if not bool(item._state & 0b0001):          item.__dearfy_preparing__(self)
+                if not bool((item._state & 0b0010) >> 1):   item.__dearfy_preinit__()
+                if not bool((item._state & 0b0100) >> 2):   item.__dearfy_init__()
+                if not bool((item._state & 0b1000) >> 3):   item.__dearfy_postinit__()
+            return
+        raise RuntimeWarning(f"Couldn't get Item from the object ({obj}).")
+
+    def push_item(self, obj: Composable) -> None:
+        self.push_item_to(obj)
 
     def set_primary_window(self, window: Tag, value: bool) -> None:
         dpg.set_primary_window(window, value)
