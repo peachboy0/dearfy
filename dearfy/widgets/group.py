@@ -59,7 +59,7 @@ class Group(Item, Enableable, Showable):
         )
     
     def __dearfy_init__(self) -> None:
-        if self._node_children:
+        if self.containered:
             kwargs = get_method_needed(dpg.add_group, **self._config)
             with dpg.group(**kwargs) as tag:
                 super().__dearfy_init__()
@@ -67,4 +67,3 @@ class Group(Item, Enableable, Showable):
             kwargs = get_method_needed(dpg.add_group, **self._config)
             tag = dpg.add_group(**kwargs)
         self._config['tag'] = tag
-

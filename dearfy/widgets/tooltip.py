@@ -43,7 +43,7 @@ class Tooltip(Item, Showable):
     
     def __dearfy_postinit__(self) -> None:
         kwargs = get_method_needed(dpg.add_tooltip, **self._config)
-        if self._node_children:
+        if self.containered:
             with dpg.tooltip(**kwargs) as tooltip:
                 super().__dearfy_init__()
                 super().__dearfy_postinit__()

@@ -54,6 +54,10 @@ class DOMNode:
         while main_parent._node_parent is not None:
             main_parent = main_parent._node_parent
         return main_parent
+
+    @property
+    def containered(self) -> bool:
+        return len(self._node_children) > 0
     
     def _add_child(self, __child: DOMNode, /) -> None:
         if not self.NODE_CONTAINERABLE:

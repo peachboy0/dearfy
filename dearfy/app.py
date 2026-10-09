@@ -3,13 +3,14 @@ from enum import Enum
 
 import dearpygui.dearpygui as dpg
 import loguru
+from rich.tree import Tree
 from typing_extensions import Any, Callable, Generator, Iterable, Iterator, TypeAlias  # noqa: UP035
 
 from dearfy.action import Action, Actioner
 from dearfy.base import DOMNode, Item
 from dearfy.field import field
 from dearfy.functions import formatting_kwargs, get_method_needed
-from dearfy.typing import Color, FilePath, Tag, DearfyObject
+from dearfy.typing import Color, DearfyObject, FilePath, Tag
 
 # ! Types
 
@@ -151,15 +152,20 @@ class App(DOMNode):
         if not bool((obj._state & 0b0100) >> 2):    obj.__dearfy_init__()
         if not bool((obj._state & 0b1000) >> 3):    obj.__dearfy_postinit__()
 
+
     def push_item_to(self, obj: Composable, *, parent: Tag | None = None) -> None:
+        loguru.logger.trace(f"[red]Call[/red]: {self!r}.push_item_to({obj!r}, parent={parent!r})")
         parent_item: Item | App = self._get_node_by_attr('tag', parent) if parent is not None else self
+        loguru.logger.trace(f"{self!r}.push_item_to(...).{parent_item=!r}")
         if isinstance(obj, Item):
+            loguru.logger.trace(f"{self!r}.push_item_to(...).obj is [green]Item[/green]")
             if parent is not None:
                 obj._config['parent'] = parent
             parent_item._add_child(obj)
             self._dearfy_obejct_init(self, obj)
             return
         elif isinstance(obj, (Iterator, Iterable, Generator)):
+            loguru.logger.trace(f"{self!r}.push_item_to(...).obj is [green]Iterator[/green] | [green]Iterable[/green] | [green]Generator[/green]")
             for item in obj:
                 if parent is not None:
                     item._config['parent'] = parent
@@ -167,6 +173,7 @@ class App(DOMNode):
                 self._dearfy_obejct_init(self, item)
             return
         elif inspect.isgeneratorfunction(obj):
+            loguru.logger.trace(f"{self!r}.push_item_to(...).obj is [green]GeneratorFunction[/green]")
             for item in obj():
                 if parent is not None:
                     item._config['parent'] = parent
@@ -174,6 +181,7 @@ class App(DOMNode):
                 self._dearfy_obejct_init(self, item)
             return
         elif inspect.isgenerator(obj):
+            loguru.logger.trace(f"{self!r}.push_item_to(...).obj is [green]Generator[/green]")
             for item in obj:
                 if parent is not None:
                     item._config['parent'] = parent

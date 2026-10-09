@@ -210,7 +210,7 @@ class Action:
         app_data: dict[str, Any] | str | None,
         user_data: Any | None=None
     ) -> Any | None:
-        loguru.logger.trace(f"[red]Call[/red]: {self!r}.__call__({sender!r}, {app_data!r}, {user_data!r})")
+        loguru.logger.trace(f"[red]Call[/red] {self!r}.__call__({sender!r}, {app_data!r}, {user_data!r})")
         if not self.enabled:
             return
         if not self.__threaded:
@@ -225,7 +225,7 @@ class Action:
                 return
             if self.__thread is not None:  # noqa: SIM102
                 if self.__thread.is_alive():
-                    loguru.logger.trace(f"[yellow]Cancel[/yellow] action <{self.__indeficator}> because the previous call [gray bold]in the thread[/gray bold] has not yet ended.")
+                    loguru.logger.trace(f"([yellow]Cancel[/yellow]) action <{self.__indeficator}> because the previous call [gray bold]in the thread[/gray bold] has not yet ended.")
                     return
             loguru.logger.trace(f"[green]Starting[/green] action <{self.__indeficator}> in [gray bold]thread mode[/gray bold].")
             self.__thread = threading.Thread(target=self.__call_thread__, args=(sender, app_data, user_data))

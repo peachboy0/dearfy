@@ -11,7 +11,7 @@ from dearfy.action import (
     ActionName,
 )
 from dearfy.base import DOMNode, Item
-from dearfy.typing import Color, FilePath, Tag
+from dearfy.typing import Color, DearfyObject, FilePath, Tag
 
 # ! Types
 
@@ -50,12 +50,12 @@ class App(DOMNode):
         minimized: bool = False,
         maximized: bool = False
     ) -> None:
-        r"""Base class for describing an application.
+        """Base class for describing an application.
 
         Args:
             title (str, optional): Sets the title of the viewport. Defaults to 'Dearfy Viewport'.
-            small_icon (FilePath | None, optional): Sets the small icon that is found in the viewport's decorator bar. Must be \*.ico on Windows and either \*.ico or \*.png on Mac. Defaults to None.
-            large_icon (FilePath | None, optional): Sets the large icon that is found in the task bar while the app is running. Must be \*.ico on Windows and either \*.ico or \*.png on Mac. Defaults to None.
+            small_icon (FilePath | None, optional): Sets the small icon that is found in the viewport's decorator bar. Must be *.ico on Windows and either *.ico or *.png on Mac. Defaults to None.
+            large_icon (FilePath | None, optional): Sets the large icon that is found in the task bar while the app is running. Must be *.ico on Windows and either *.ico or *.png on Mac. Defaults to None.
             width (int, optional): Sets the width of the drawable space on the viewport. Defaults to 1280.
             height (int, optional): Sets the height of the drawable space on the viewport. Defaults to 800.
             x_pos (int, optional): Sets X position the viewport will be drawn in screen coordinates. Defaults to 100.
@@ -75,6 +75,9 @@ class App(DOMNode):
         """
     
     def compose(self) -> ComposeResult: ...
+
+    @staticmethod
+    def _dearfy_obejct_init(app: App, obj: DearfyObject) -> None: ...
 
     def __dearfy_compose__(self) -> None: ...
     def __dearfy_preparing__(self) -> None: ...

@@ -2,6 +2,7 @@ from dearfy.widgets.button import Button
 from dearfy.widgets.checkbox import Checkbox
 from dearfy.widgets.group import Group
 from dearfy.widgets.inputs import *
+from dearfy.widgets.popup import Popup
 from dearfy.widgets.text import Text
 from dearfy.widgets.tooltip import Tooltip
 from dearfy.widgets.window import Window
@@ -14,7 +15,8 @@ __all__ = [
     'InputFloat',
     'InputInt',
     'InputText',
+    'Popup',
     'Text',
     'Tooltip',
-    'Window'
+    'Window',
 ]

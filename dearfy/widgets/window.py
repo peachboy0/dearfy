@@ -79,7 +79,7 @@ class Window(Item, Showable):
         )
     
     def __dearfy_init__(self) -> None:
-        if self._node_children:
+        if self.containered:
             kwargs = get_method_needed(dpg.add_window, **self._config)
             with dpg.window(**kwargs) as tag:
                 super().__dearfy_init__()
