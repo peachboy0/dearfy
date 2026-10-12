@@ -31,6 +31,13 @@ def get_method_needed(method: Callable[..., Any], **kwargs: T) -> dict[str, T]:
             new_kwargs[key] = value
     return new_kwargs
 
+def validate_enum(enum_type: type[T], value: T | str | int) -> T:
+    if isinstance(value, str):
+        value: T = getattr(enum_type, value.upper())
+    elif isinstance(value, int):
+        value: T = enum_type(value)
+    return value
+
 # ! For DearPyGUI Methods
 
 def wait_frames(count: int, *, delay: int=1) -> None:

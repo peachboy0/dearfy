@@ -1,6 +1,6 @@
 [project]
 name = "dearfy"
-version = "0.1.7a1"
+version = "0.1.8a1"
 description = "A library for simplifying the creation of complex GUIs using DearPyGUI."
 authors = [
     {name = "Romanin", email = "semina054@gmail.com"}
@@ -21,13 +21,11 @@ dev = [
 ]
 
 [tool.ruff]
-# Увеличьте длину строки, так как кириллические символы визуально длиннее
 line-length = 120
 
 [tool.ruff.lint]
-# Исключите предупреждения о не-ASCII символах в строках и комментариях (правило RUF001, RUF002, RUF003)
 ignore = [
-    "RUF001", # String contains ambiguous cyrillic letter
-    "RUF002", # Docstring contains ambiguous cyrillic letter
-    "RUF003", # Comment contains ambiguous cyrillic letter
+    "RUF001",
+    "RUF002",
+    "RUF003",
 ]

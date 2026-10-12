@@ -10,6 +10,7 @@ from dearfy.widgets.radio_button import RadioButton
 from dearfy.widgets.separator import Separator
 from dearfy.widgets.text import Text
 from dearfy.widgets.tooltip import Tooltip
+from dearfy.widgets.tree_node import TreeNode, TreeNodeLines
 from dearfy.widgets.window import Window
 
 __all__ = [
@@ -29,5 +30,7 @@ __all__ = [
     'Separator',
     'Text',
     'Tooltip',
-    'Window',
+    'TreeNode',
+    'TreeNodeLines',
+    'Window'
 ]

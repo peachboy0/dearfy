@@ -13,6 +13,8 @@ from typing_extensions import (  # noqa: UP035
     TypeVar,
 )
 
+from dearfy.field import field
+from dearfy.functions import validate_enum
 from dearfy.typing import Tag
 
 # ! Types
@@ -56,15 +58,6 @@ def _match_call_args(self: object | None, method: ActionMethod, *args: object) -
             return (self, *(args[:len(params) - 1]))
     return args[:len(params)]
 
-# ! Methods
-
-def validate_enum(enum_type: type[T], value: ActionBlockMode | str | int) -> T:
-    if isinstance(value, str):
-        value: T = getattr(enum_type, value.upper())
-    elif isinstance(value, int):
-        value: T = enum_type(value)
-    return value
-
 # ! Action Class
 
 class Action:
@@ -75,7 +68,7 @@ class Action:
         group: str='main',
         callmode: ActionCallModeLiteral | ActionCallMode = ActionCallMode.MANY,
         blockmode: ActionBlockModeLiteral | ActionBlockMode = ActionBlockMode.NONE,
-        blocks: Iterable[ActionName | tuple[ActionName, ActionGroup]]=[],
+        blocks: Iterable[ActionName | tuple[ActionName, ActionGroup]] | None = None,
         threaded: bool=False,
         /
     ) -> None:
@@ -88,7 +81,7 @@ class Action:
         self.__thread: threading.Thread | None = None
         self.callmode = validate_enum(ActionCallMode, callmode)
         self.blockmode = validate_enum(ActionBlockMode, blockmode)
-        self.blocks = list(blocks)
+        self.blocks = field(blocks, default_factory=list, wrap=list, nullable=False)
         self.state = ActionState.ENABLED
         self.last_call = None
     
@@ -279,7 +272,7 @@ class Actioner:
         group: str='main',
         callmode: ActionCallModeLiteral | ActionCallMode = ActionCallMode.MANY,
         blockmode: ActionBlockModeLiteral | ActionBlockMode = ActionBlockMode.NONE,
-        blocks: Iterable[ActionName | tuple[ActionName, ActionGroup]]=[],
+        blocks: Iterable[ActionName | tuple[ActionName, ActionGroup]] | None = None,
         threaded: bool=False,
     ):
         def wrapper(method: ActionMethod):
@@ -294,7 +287,7 @@ class Actioner:
         group: str='main',
         callmode: ActionCallModeLiteral | ActionCallMode = ActionCallMode.MANY,
         blockmode: ActionBlockModeLiteral | ActionBlockMode = ActionBlockMode.NONE,
-        blocks: Iterable[ActionName | tuple[ActionName, ActionGroup]]=[],
+        blocks: Iterable[ActionName | tuple[ActionName, ActionGroup]] | None = None,
         threaded: bool=False,
     ) -> None:
         action = Action(self, name, method, group, callmode, blockmode, blocks, threaded)
