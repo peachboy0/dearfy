@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-# > Typing
 from typing_extensions import Callable, Literal, TypeVar, overload  # noqa: UP035
 
 # ! Type Vars

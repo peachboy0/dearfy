@@ -179,7 +179,7 @@ class Action:
         user_data: Any | None=None
     ) -> Any | None:
         self.state |= ActionState.RUNNING
-        self.last_call = datetime.datetime.now()  # noqa: DTZ005
+        self.last_call = datetime.datetime.now()
         self.actions.set_block(True, self.indeficator, self.blockmode, self.blocks)
         try:
             result = self.method(*_match_call_args(self.actions._app, self.method, sender, app_data, user_data))
@@ -196,7 +196,7 @@ class Action:
         user_data: Any | None=None
     ) -> None:
         self.state |= ActionState.RUNNING
-        self.last_call = datetime.datetime.now()  # noqa: DTZ005
+        self.last_call = datetime.datetime.now()
         self.actions.set_block(True, self.indeficator, self.blockmode, self.blocks)
         try:
             self.method(*_match_call_args(self.actions._app, self.method, sender, app_data, user_data))

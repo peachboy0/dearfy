@@ -1,9 +1,6 @@
 import dearpygui.dearpygui as dpg
-
-# > Typing
 from typing_extensions import Unpack, deprecated
 
-# > Dearfy
 from dearfy.base import Item, ItemKwargs
 from dearfy.functions import get_method_needed
 from dearfy.typing import ExperimentalWarning

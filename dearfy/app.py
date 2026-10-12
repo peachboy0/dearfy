@@ -3,7 +3,6 @@ from enum import Enum
 
 import dearpygui.dearpygui as dpg
 import loguru
-from rich.tree import Tree
 from typing_extensions import Any, Callable, Generator, Iterable, Iterator, TypeAlias  # noqa: UP035
 
 from dearfy.action import Action, Actioner

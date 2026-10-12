@@ -86,4 +86,5 @@ class Window(Item, Showable):
         else:
             kwargs = get_method_needed(dpg.add_window, **self._config)
             tag = dpg.add_window(**kwargs)
+            super().__dearfy_init__()
         self._config['tag'] = tag

@@ -4,6 +4,7 @@ from dearfy.widgets.combo import Combo
 from dearfy.widgets.group import Group
 from dearfy.widgets.inputs import *
 from dearfy.widgets.listbox import ListBox
+from dearfy.widgets.menu import Menu, MenuBar
 from dearfy.widgets.popup import Popup
 from dearfy.widgets.radio_button import RadioButton
 from dearfy.widgets.separator import Separator
@@ -21,10 +22,12 @@ __all__ = [
     'InputInt',
     'InputText',
     'ListBox',
+    'Menu',
+    'MenuBar',
     'Popup',
     'RadioButton',
     'Separator',
     'Text',
     'Tooltip',
-    'Window'
+    'Window',
 ]

@@ -66,4 +66,5 @@ class Group(Item, Enableable, Showable):
         else:
             kwargs = get_method_needed(dpg.add_group, **self._config)
             tag = dpg.add_group(**kwargs)
+            super().__dearfy_init__()
         self._config['tag'] = tag
