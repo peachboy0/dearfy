@@ -67,6 +67,34 @@ class Item(DOMNode):
     @property
     def inited(self) -> bool:
         return bool((self._state & 0b0100) >> 2)
+
+    @property
+    def label(self) -> str | None:
+        if self.tag != 0:
+            value = dpg.get_item_label(self.tag)
+            self._config['label'] = value
+            return value
+        return self._config['label']
+
+    @label.setter
+    def label(self, v: str) -> None:
+        if self.tag != 0:
+            dpg.set_item_label(self.tag, v)
+        self._config['label'] = v
+
+    @property
+    def user_data(self) -> Any:
+        if self.tag != 0:
+            value = dpg.get_item_user_data(self.tag)
+            self._config['user_data'] = value
+            return value
+        return self._config['user_data']
+
+    @user_data.setter
+    def user_data(self, v: Any) -> None:
+        if self.tag != 0:
+            dpg.set_item_user_data(self.tag, v)
+        self._config['user_data'] = v
     
     def __dearfy_preparing__(self, app: object) -> None:
         loguru.logger.trace(f'[red]Call[/red]: {self!r}.__dearfy_preparing__({app!r})')
