@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import dearpygui.dearpygui as dpg
 import loguru
-from typing_extensions import Any, Callable, NotRequired, ParamSpecKwargs, TypeAlias, TypedDict, Iterator  # noqa: UP035
+from typing_extensions import Any, Callable, Iterator, NotRequired, ParamSpecKwargs, TypeAlias, TypedDict  # noqa: UP035
 
 from dearfy.base.domnode import DOMNode
 from dearfy.exceptions import DearfyAppNoInited

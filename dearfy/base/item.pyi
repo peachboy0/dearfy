@@ -1,6 +1,6 @@
 from collections import deque
 
-from typing_extensions import Any, Callable, ClassVar, NotRequired, ParamSpecKwargs, TypeAlias, TypedDict  # noqa: UP035
+from typing_extensions import Any, Callable, ClassVar, Iterator, NotRequired, ParamSpecKwargs, TypeAlias, TypedDict  # noqa: UP035
 
 from dearfy.app import App
 from dearfy.base.domnode import DOMNode
