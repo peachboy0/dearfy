@@ -16,8 +16,11 @@ def clear(src: str, remove_chars: str = '\a\t\r\n ') -> str:
 
 def get_git_repo_version() -> str:
     ver = clear(subprocess.check_output(['git', 'describe', '--tags']).decode())
-    main, commit, commit_hex = ver.split('-')
-    return f"{main}-{commit}+{commit_hex}"
+    if len(ver.split('-')) == 3:
+        main, commit, commit_hex = ver.split('-')
+        return f"{main}-{commit}+{commit_hex}"
+    else:
+        return ver
 
 # ! Main
 
