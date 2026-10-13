@@ -61,7 +61,7 @@ class Combo(Item, Showable, Enableable, Variable[str]):
             no_arrow_button=no_arrow_button,
             no_preview=no_preview,
             fit_width=fit_width,
-            height_mode=height_mode
+            height_mode=height_mode,
             **kwargs
         )
 
