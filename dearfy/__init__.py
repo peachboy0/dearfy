@@ -1,3 +1,4 @@
+import importlib.metadata
 import logging as std_logging
 
 import loguru
@@ -7,7 +8,7 @@ from dearfy.logging import LoguruRichHandler, spetific_format_log
 # ! Metadata
 
 __name__ = 'dearfy'
-__version__ = '0.1.8a1'
+__version__ = importlib.metadata.version(__name__)
 __author__ = 'peachboy0'
 
 # ! Logging
