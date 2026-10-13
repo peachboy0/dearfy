@@ -123,6 +123,6 @@ class MenuItem(Item, Showable, Enableable):
         )
 
     def __dearfy_init__(self) -> None:
-        kwargs = get_method_needed(dpg.add_menu, **self._config)
-        self._config['tag'] = dpg.add_menu(**kwargs)
+        kwargs = get_method_needed(dpg.add_menu_item, **self._config)
+        self._config['tag'] = dpg.add_menu_item(**kwargs)
         super().__dearfy_init__()
