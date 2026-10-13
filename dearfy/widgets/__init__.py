@@ -8,6 +8,7 @@ from dearfy.widgets.menu import Menu, MenuBar
 from dearfy.widgets.popup import Popup
 from dearfy.widgets.radio_button import RadioButton
 from dearfy.widgets.separator import Separator
+from dearfy.widgets.tabs import Tab, TabBar
 from dearfy.widgets.text import Text
 from dearfy.widgets.tooltip import Tooltip
 from dearfy.widgets.tree_node import TreeNode, TreeNodeLines
@@ -28,6 +29,8 @@ __all__ = [
     'Popup',
     'RadioButton',
     'Separator',
+    'Tab',
+    'TabBar',
     'Text',
     'Tooltip',
     'TreeNode',
