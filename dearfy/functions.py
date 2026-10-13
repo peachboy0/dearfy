@@ -2,7 +2,7 @@ import ctypes
 import inspect
 
 import dearpygui.dearpygui as dpg
-from typing_extensions import Any, Callable, Iterable, Literal, TypeVar  # noqa: UP035
+from typing_extensions import Any, Callable, Iterable, Iterator, Literal, TypeVar  # noqa: UP035
 
 from dearfy.typing import Tag
 
@@ -16,6 +16,15 @@ def formatting_kwargs(**kwargs: object) -> str:
     return ', '.join(f'{key}={value!r}' for key, value in kwargs.items())
 
 # ! Object Works
+
+def generator_safe(
+    generator_function: Callable[..., Iterator[T] | None],
+    *args: object, **kwargs: object
+) -> Iterator[T]:
+    yield from ()
+    obj = generator_function(*args, **kwargs)
+    if obj is not None:
+        yield from obj
 
 def get_method_needed(method: Callable[..., Any], **kwargs: T) -> dict[str, T]:
     if inspect.ismethod(method):

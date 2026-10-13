@@ -8,7 +8,7 @@ from typing_extensions import Any, Callable, Generator, Iterable, Iterator, Type
 from dearfy.action import Action, Actioner
 from dearfy.base import DOMNode, Item
 from dearfy.field import field
-from dearfy.functions import formatting_kwargs, get_method_needed
+from dearfy.functions import formatting_kwargs, generator_safe, get_method_needed
 from dearfy.typing import Color, DearfyObject, FilePath, Tag
 
 # ! Types
@@ -105,7 +105,7 @@ class App(DOMNode):
     
     def __dearfy_compose__(self) -> None:
         self._nodes.append(self)
-        for child in self.compose():
+        for child in generator_safe(self.compose):
             if self._current_node:
                 self._current_node._add_child(child)
         self._nodes.clear()
