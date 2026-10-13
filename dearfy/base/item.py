@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import dearpygui.dearpygui as dpg
 import loguru
-from typing_extensions import Any, Callable, NotRequired, ParamSpecKwargs, TypeAlias, TypedDict  # noqa: UP035
+from typing_extensions import Any, Callable, NotRequired, ParamSpecKwargs, TypeAlias, TypedDict, Iterator  # noqa: UP035
 
 from dearfy.base.domnode import DOMNode
 from dearfy.exceptions import DearfyAppNoInited
@@ -151,6 +151,13 @@ class Item(DOMNode):
             f"\t- _node_main_parent={self._node_main_parent!r}\n"
             f"\t- _node_parent={self._node_parent!r}\n"
         )
+
+    def search_item(self, mask_tag: str) -> Item:
+        return self._node_main_parent._search_node_by_strattr('tag', mask_tag)
+
+    def search_items(self, mask_tag: str) -> Iterator[Item]:
+        yield from ()
+        yield from self._search_nodes_by_strattr('tag', mask_tag)
 
     def push_item(self, item: Item) -> None:
         if self._app is None:
