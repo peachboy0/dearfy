@@ -1,8 +1,11 @@
 
 # ! Dearfy Exceptions
 
-class DearfyNoContentException(Exception):
+class DearfyNoContentError(Exception):
     """Item must contain child items."""
 
-class DearfyAppNoInited(Exception):
+class DearfyAppNoInitedError(Exception):
     """The application has not yet been initialized."""
+
+class DearfyNotItemError(Exception):
+    pass

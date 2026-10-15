@@ -144,13 +144,19 @@ class App(DOMNode):
             f"_node_main_parent={self._node_main_parent!r}"
         )
 
+    def search_item(self, mask_tag: str) -> Item:
+        return self._search_node_by_strattr('tag', mask_tag)
+
+    def search_items(self, mask_tag: str) -> Iterator[Item]:
+        yield from ()
+        yield from self._search_nodes_by_strattr('tag', mask_tag)
+
     @staticmethod
     def _dearfy_obejct_init(app: 'App', obj: DearfyObject) -> None:
         if not bool(obj._state & 0b0001):           obj.__dearfy_preparing__(app)
         if not bool((obj._state & 0b0010) >> 1):    obj.__dearfy_preinit__()
         if not bool((obj._state & 0b0100) >> 2):    obj.__dearfy_init__()
         if not bool((obj._state & 0b1000) >> 3):    obj.__dearfy_postinit__()
-
 
     def push_item_to(self, obj: Composable, *, parent: Tag | None = None) -> None:
         loguru.logger.trace(f"[red]Call[/red]: {self!r}.push_item_to({obj!r}, parent={parent!r})")
