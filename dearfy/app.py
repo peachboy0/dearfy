@@ -82,6 +82,7 @@ class App(DOMNode):
                 'maximized': maximized,
             }
         }
+        self.before_compose()
         self.__dearfy_compose__()
         self.__dearfy_init_action_attributes__()
         self._actioner._app = self
@@ -229,6 +230,9 @@ class App(DOMNode):
 
     def on_ready(self) -> None:
         """Called after full initialization, before the main loop starts."""
+
+    def before_compose(self) -> None:
+        ...
 
     def on_preparing(self) -> None:
         """Called before initialization, when the context has NOT yet been created."""
