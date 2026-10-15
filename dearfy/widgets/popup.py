@@ -2,7 +2,7 @@ import dearpygui.dearpygui as dpg
 from typing_extensions import Unpack
 
 from dearfy.base import Item, ItemKwargs
-from dearfy.exceptions import DearfyNoContentException
+from dearfy.exceptions import DearfyNoContentError
 from dearfy.field import field
 from dearfy.functions import get_method_needed
 from dearfy.typing import Size, Tag
@@ -40,7 +40,7 @@ class Popup(Item):
     def __dearfy_init__(self) -> None:
         kwargs = get_method_needed(dpg.add_window, **self._config)
         if not self.containered:
-            raise DearfyNoContentException("The object has no content.")
+            raise DearfyNoContentError("The object has no content.")
         with dpg.popup(**kwargs) as tag:
             self.__dearfy_init__()
         self._config['tag'] = tag

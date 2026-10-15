@@ -5,7 +5,7 @@ import loguru
 from typing_extensions import Any, Callable, Iterator, NotRequired, ParamSpecKwargs, TypeAlias, TypedDict  # noqa: UP035
 
 from dearfy.base.domnode import DOMNode
-from dearfy.exceptions import DearfyAppNoInited
+from dearfy.exceptions import DearfyAppNoInitedError
 from dearfy.field import field
 from dearfy.functions import formatting_kwargs, get_method_needed
 from dearfy.typing import Tag
@@ -161,12 +161,12 @@ class Item(DOMNode):
 
     def push_item(self, item: Item) -> None:
         if self._app is None:
-            raise DearfyAppNoInited('The application is not initialized.')
+            raise DearfyAppNoInitedError('The application is not initialized.')
         self.app.push_item_to(item, self.tag)
 
     def push_item_to(self, item: Item, *, parent: Tag | None = None) -> Tag:
         if self._app is None:
-            raise DearfyAppNoInited('The application is not initialized.')
+            raise DearfyAppNoInitedError('The application is not initialized.')
         self._app.push_item_to(item, parent)
 
     def _move_item_to(self, parent: Tag) -> None:
