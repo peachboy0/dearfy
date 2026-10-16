@@ -243,6 +243,10 @@ class App(DOMNode):
         """Shows the standard debug window."""
         dpg.show_debug()
 
+    def show_style_editor(self) -> None:
+        """Shows the standard style editor window."""
+        dpg.show_style_editor()
+
     def on_ready(self) -> None:
         """Called after full initialization, before the main loop starts."""
 

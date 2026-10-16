@@ -126,6 +126,8 @@ class App(DOMNode):
         """Shows the item hierarchy of your application."""
     def show_debug(self) -> None:
         """Shows the standard debug window."""
+    def show_style_editor(self) -> None:
+        """Shows the standard style editor window."""
 
     def run(self) -> None: ...
 
