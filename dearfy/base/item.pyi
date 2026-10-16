@@ -32,12 +32,13 @@ class ItemKwargs(TypedDict):
 class Item(DOMNode):
     """Base class describing the element."""
 
+    REPR_HIDDEN_KWARGS: ClassVar[tuple[str, ...]]
+    """Hides the values of the specified arguments."""
     VALIDATORS_KWARGS: ClassVar[tuple[ValidatorKwargsType, ...]]
     """Iterable of validators for element settings."""
     REFERENCE_METHOD: Callable[..., Any] | None
     """A method whose arguments will be considered as default arguments."""
-    REPR_HIDDEN_KWARGS: tuple[str, ...] = ()
-    """Hides the values of the specified arguments."""
+    
 
     _nodes: ClassVar[deque[App | Item | DOMNode]]
 

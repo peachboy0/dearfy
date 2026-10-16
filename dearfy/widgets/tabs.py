@@ -62,7 +62,7 @@ class TabBar(Item, Showable):
 
 # ! Tab Item Class
 
-class Tab(Item):
+class Tab(Item, Showable):
     REFERENCE_METHOD = dpg.add_tab
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
 

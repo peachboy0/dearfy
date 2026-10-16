@@ -10,6 +10,7 @@ from dearfy.validator import ValidateKwargsAction
 # ! Input Slider INT Item Class
 
 class SliderInt(Item, Enableable, Showable, Variable[int]):
+    REPR_HIDDEN_KWARGS = ('value', 'default_value')
     REFERENCE_METHOD = dpg.add_slider_int
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
 
@@ -74,6 +75,7 @@ class SliderInt(Item, Enableable, Showable, Variable[int]):
 # ! Input Slider FLOAT Item Class
 
 class SliderFloat(Item, Enableable, Showable, Variable[float]):
+    REPR_HIDDEN_KWARGS = ('value', 'default_value')
     REFERENCE_METHOD = dpg.add_slider_float
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
 
@@ -138,6 +140,7 @@ class SliderFloat(Item, Enableable, Showable, Variable[float]):
 # ! Input Slider DOUBLE Item Class
 
 class SliderDouble(Item, Enableable, Showable, Variable[float]):
+    REPR_HIDDEN_KWARGS = ('value', 'default_value')
     REFERENCE_METHOD = dpg.add_slider_double
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
 
