@@ -1,8 +1,8 @@
-from dearfy.app import App, action
-from dearfy.widgets import *
-from dearfy.typing import Tag
+from typing_extensions import Any  # noqa: UP035
 
-from typing_extensions import Any
+from dearfy.app import App, action
+from dearfy.typing import Tag
+from dearfy.widgets import *
 
 # ! Menu
 

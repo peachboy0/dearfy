@@ -265,22 +265,22 @@ class App(DOMNode):
         self._state = AppState.PREPARING
         self.__dearfy_preparing__()
         loguru.logger.trace('[green]▬▬▬▬▬[/green] [yellow]AFTER PREPARING[/yellow] [green]▬▬▬▬▬[/green]')
-        loguru.logger.trace(self._to_rich_tree())
+        loguru.logger.trace("{tree}", tree=self._to_rich_tree())
         dpg.create_context()
         dpg.create_viewport(**(self._gkwagrs['create_viewport']))
         self._state = AppState.PREINIT
         self.__dearfy_preinit__()
         loguru.logger.trace('[green]▬▬▬▬▬[/green] [yellow]AFTER PREINIT[/yellow] [green]▬▬▬▬▬[/green]')
-        loguru.logger.trace(self._to_rich_tree())
+        loguru.logger.trace("{tree}", tree=self._to_rich_tree())
         self._state = AppState.INIT
         self.__dearfy_init__()
         loguru.logger.trace('[green]▬▬▬▬▬[/green] [yellow]AFTER INIT[/yellow] [green]▬▬▬▬▬[/green]')
-        loguru.logger.trace(self._to_rich_tree())
+        loguru.logger.trace("{tree}", tree=self._to_rich_tree())
         dpg.setup_dearpygui()
         self._state = AppState.POSTINIT
         self.__dearfy_postinit__()
         loguru.logger.trace('[green]▬▬▬▬▬[/green] [yellow]AFTER POSTINIT[/yellow] [green]▬▬▬▬▬[/green]')
-        loguru.logger.trace(self._to_rich_tree())
+        loguru.logger.trace("{tree}", tree=self._to_rich_tree())
         self._state = AppState.RUNNING
         dpg.show_viewport(**(self._gkwagrs['show_viewport']))
         self.on_ready()
@@ -288,6 +288,6 @@ class App(DOMNode):
         dpg.destroy_context()
         self._state = AppState.NONE
         self.__dearfy_destroy__()
-        loguru.logger.trace(self._to_rich_tree())
+        loguru.logger.trace("{tree}", tree=self._to_rich_tree())
 
 action = App._actioner.action 
