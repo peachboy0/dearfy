@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import dearpygui.dearpygui as dpg
 import loguru
-from typing_extensions import Any, Callable, Iterator, NotRequired, ParamSpecKwargs, TypeAlias, TypedDict  # noqa: UP035
+from typing_extensions import Any, Callable, Iterator, Iterable, NotRequired, ParamSpecKwargs, TypeAlias, TypedDict  # noqa: UP035
 
 from dearfy.base.domnode import DOMNode
 from dearfy.exceptions import DearfyAppNoInitedError
@@ -139,7 +139,8 @@ class Item(DOMNode):
         self._state = 0
         for child in self._node_children:
             child.__dearfy_destroy__()
-    
+
+    # TODO: Refactoring...
     def get_item(self, tag: Tag) -> Item:
         try:
             return self._node_main_parent._get_node_by_attr('tag', tag)
@@ -152,18 +153,26 @@ class Item(DOMNode):
             f"\t- _node_parent={self._node_parent!r}\n"
         )
 
+    # TODO: NEEDED
+    def get_items(self, tags: Iterable[Tag]) -> Iterator[Item]:
+        ...
+
+    # TODO: Refactoring...
     def search_item(self, mask_tag: str) -> Item:
         return self._node_main_parent._search_node_by_strattr('tag', mask_tag)
 
+    # TODO: Refactoring...
     def search_items(self, mask_tag: str) -> Iterator[Item]:
         yield from ()
         yield from self._search_nodes_by_strattr('tag', mask_tag)
 
+    # TODO: Refactoring...
     def push_item(self, item: Item) -> None:
         if self._app is None:
             raise DearfyAppNoInitedError('The application is not initialized.')
         self.app.push_item_to(item, self.tag)
 
+    # TODO: Refactoring...
     def push_item_to(self, item: Item, *, parent: Tag | None = None) -> Tag:
         if self._app is None:
             raise DearfyAppNoInitedError('The application is not initialized.')

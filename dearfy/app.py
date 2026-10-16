@@ -153,7 +153,7 @@ class App(DOMNode):
         yield from self._search_nodes_by_strattr('tag', mask_tag)
 
     @staticmethod
-    def _dearfy_obejct_init(app: 'App', obj: DearfyObject) -> None:
+    def _dearfy_object_init(app: 'App', obj: DearfyObject) -> None:
         if not bool(obj._state & 0b0001):           obj.__dearfy_preparing__(app)
         if not bool((obj._state & 0b0010) >> 1):    obj.__dearfy_preinit__()
         if not bool((obj._state & 0b0100) >> 2):    obj.__dearfy_init__()
