@@ -1,6 +1,16 @@
 from collections import deque
 
-from typing_extensions import Any, Callable, ClassVar, Iterator, NotRequired, ParamSpecKwargs, TypeAlias, TypedDict  # noqa: UP035
+from typing_extensions import (  # noqa: UP035
+    Any,
+    Callable,
+    ClassVar,
+    Iterable,
+    Iterator,
+    NotRequired,
+    ParamSpecKwargs,
+    TypeAlias,
+    TypedDict,
+)
 
 from dearfy.app import App
 from dearfy.base.domnode import DOMNode
@@ -26,6 +36,8 @@ class Item(DOMNode):
     """Iterable of validators for element settings."""
     REFERENCE_METHOD: Callable[..., Any] | None
     """A method whose arguments will be considered as default arguments."""
+    REPR_HIDDEN_KWARGS: tuple[str, ...] = ()
+    """Hides the values of the specified arguments."""
 
     _nodes: ClassVar[deque[App | Item | DOMNode]]
 
@@ -89,6 +101,7 @@ class Item(DOMNode):
 
     def _move_item_to(self, parent: Tag) -> None: ...
     def get_item(self, tag: Tag) -> Item: ...
+    def get_items(self, tags: Iterable[Tag], /) -> Iterator[Item]: ...
     def search_item(self, mask_tag: str) -> Item: ...
     def search_items(self, mask_tag: str) -> Iterator[Item]: ...
 

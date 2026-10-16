@@ -12,8 +12,8 @@ T = TypeVar('T')
 
 # ! String Formatting
 
-def formatting_kwargs(**kwargs: object) -> str:
-    return ', '.join(f'{key}={value!r}' for key, value in kwargs.items())
+def formatting_kwargs(*hidden_kwargs: str, **kwargs: object) -> str:
+    return ', '.join([f'{key}={value!r}' for key, value in kwargs.items() if key not in hidden_kwargs])
 
 # ! Object Works
 

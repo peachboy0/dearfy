@@ -1,3 +1,4 @@
+import fnmatch
 import inspect
 from enum import Enum
 
@@ -134,23 +135,38 @@ class App(DOMNode):
     def __dearfy_destroy__(self) -> None:
         for child in self._node_children:
             child.__dearfy_destroy__()
-    
+
     def get_item(self, tag: Tag) -> Item:
-        try:
-            return self._node_main_parent._get_node_by_attr('tag', tag)
-        except AttributeError:
-            pass
-        raise RuntimeError(
-            "There is no Item with this tag. "
-            f"_node_main_parent={self._node_main_parent!r}"
-        )
+        for child in self._node_children:
+            if hasattr(child, 'tag'):
+                try:
+                    return child.get_item(tag)
+                except ValueError:
+                    pass
+        raise ValueError('An object with such an attribute does not exist.')
+
+    def get_items(self, tags: Iterable[Tag], /) -> Iterator[Item]:
+        if not isinstance(tags, set):
+            tags = set(tags)
+        yield from ()
+        for child in self._node_children:
+            if hasattr(child, 'tag'):
+                yield from child.get_items(tags)
 
     def search_item(self, mask_tag: str) -> Item:
-        return self._search_node_by_strattr('tag', mask_tag)
+        for child in self._node_children:
+            if hasattr(child, 'tag'):
+                try:
+                    return child.search_item(mask_tag)
+                except ValueError:
+                    pass
+        raise ValueError('An object with such an attribute does not exist.')
 
     def search_items(self, mask_tag: str) -> Iterator[Item]:
         yield from ()
-        yield from self._search_nodes_by_strattr('tag', mask_tag)
+        for child in self._node_children:
+            if hasattr(child, 'tag'):
+                yield from child.search_items(mask_tag)
 
     @staticmethod
     def _dearfy_object_init(app: 'App', obj: DearfyObject) -> None:

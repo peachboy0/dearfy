@@ -5,7 +5,7 @@ from collections import deque
 from types import TracebackType
 
 from rich.tree import Tree
-from typing_extensions import Any, ClassVar, Iterator, Self  # noqa: UP035
+from typing_extensions import Any, ClassVar, Iterator, Self, deprecated  # noqa: UP035
 
 # ! DOM Node Class
 
@@ -73,7 +73,8 @@ class DOMNode:
     
     def _pop_child(self, __index: int=-1, /) -> DOMNode:
         return self._node_children.pop(__index)
-    
+
+    @deprecated("This object will be deleted!")
     def _get_node_by_attr(self, __attr_name: str, __attr_value: Any, /) -> DOMNode:
         if hasattr(self, __attr_name):  # noqa: SIM102
             if getattr(self, __attr_name) == __attr_value:
@@ -89,6 +90,7 @@ class DOMNode:
                 pass
         raise AttributeError('Node with this attribute value does not exist.')
 
+    @deprecated("This object will be deleted!")
     def _search_node_by_strattr(self, __attr_name: str, __attr_mask: str, /) -> DOMNode:
         if isinstance(attr_value := getattr(self, __attr_name, None), str):  # noqa: SIM102
             if fnmatch.fnmatch(attr_value, __attr_mask):
@@ -104,6 +106,7 @@ class DOMNode:
                 pass
         return AttributeError('Node with this attribute value does not exist.')
 
+    @deprecated("This object will be deleted!")
     def _search_nodes_by_strattr(self, __attr_name: str, __attr_mask: str, /) -> Iterator[DOMNode]:
         yield from ()
         if isinstance(attr_value := getattr(self, __attr_name, None), str):  # noqa: SIM102

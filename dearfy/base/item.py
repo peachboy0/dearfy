@@ -1,8 +1,10 @@
 from __future__ import annotations
 
+import fnmatch
+
 import dearpygui.dearpygui as dpg
 import loguru
-from typing_extensions import Any, Callable, Iterator, Iterable, NotRequired, ParamSpecKwargs, TypeAlias, TypedDict  # noqa: UP035
+from typing_extensions import Any, Callable, Iterable, Iterator, NotRequired, ParamSpecKwargs, TypeAlias, TypedDict  # noqa: UP035
 
 from dearfy.base.domnode import DOMNode
 from dearfy.exceptions import DearfyAppNoInitedError
@@ -24,6 +26,7 @@ class ItemKwargs(TypedDict):
 # ! Base Widget Class
 
 class Item(DOMNode):
+    REPR_HIDDEN_KWARGS: tuple[str, ...] = ()
     VALIDATORS_KWARGS: tuple[ValidatorKwargsType, ...] = ()
     REFERENCE_METHOD: Callable[..., Any] | None = None
     
@@ -54,7 +57,7 @@ class Item(DOMNode):
             kwargs = get_method_needed(self.REFERENCE_METHOD, **self._config)
         else:
             kwargs = self._config
-        return f'{self.__class__.__name__}({formatting_kwargs(**kwargs)})'
+        return f'{self.__class__.__name__}({formatting_kwargs(*self.REPR_HIDDEN_KWARGS, **kwargs)})'
     
     @property
     def tag(self) -> Tag:
@@ -140,39 +143,54 @@ class Item(DOMNode):
         for child in self._node_children:
             child.__dearfy_destroy__()
 
-    # TODO: Refactoring...
     def get_item(self, tag: Tag) -> Item:
-        try:
-            return self._node_main_parent._get_node_by_attr('tag', tag)
-        except AttributeError:
-            pass
-        raise RuntimeError(
-            "There is no Item with this tag.\n"
-            "Advance datas:\n"
-            f"\t- _node_main_parent={self._node_main_parent!r}\n"
-            f"\t- _node_parent={self._node_parent!r}\n"
-        )
+        if self.tag == tag:
+            return self
+        for child in self._node_children:
+            if hasattr(child, 'tag'):
+                try:
+                    return child.get_item(tag)
+                except ValueError:
+                    pass
+        raise ValueError('An object with such an attribute does not exist.')
 
-    # TODO: NEEDED
-    def get_items(self, tags: Iterable[Tag]) -> Iterator[Item]:
-        ...
+    def get_items(self, tags: Iterable[Tag], /) -> Iterator[Item]:
+        if not isinstance(tags, set):
+            tags = set(tags)
+        yield from ()
+        if self.tag in tags:
+            tags.remove(self.tag)
+            yield self
+        for child in self._node_children:
+            if hasattr(child, 'tag'):
+                yield from child.get_items(tags)
 
-    # TODO: Refactoring...
     def search_item(self, mask_tag: str) -> Item:
-        return self._node_main_parent._search_node_by_strattr('tag', mask_tag)
+        if fnmatch.fnmatch(str(self.tag), mask_tag):
+            return self
+        for child in self._node_children:
+            if hasattr(child, 'tag'):
+                try:
+                    return child.search_item(mask_tag)
+                except ValueError:
+                    pass
+        raise ValueError('An object with such an attribute does not exist.')
 
-    # TODO: Refactoring...
     def search_items(self, mask_tag: str) -> Iterator[Item]:
         yield from ()
-        yield from self._search_nodes_by_strattr('tag', mask_tag)
+        if fnmatch.fnmatch(str(self.tag), mask_tag):
+            yield self
+        for child in self._node_children:
+            if hasattr(child, 'tag'):
+                yield from child.search_items(mask_tag)
 
-    # TODO: Refactoring...
+    # NEEDED: Refactoring...
     def push_item(self, item: Item) -> None:
         if self._app is None:
             raise DearfyAppNoInitedError('The application is not initialized.')
         self.app.push_item_to(item, self.tag)
 
-    # TODO: Refactoring...
+    # NEEDED: Refactoring...
     def push_item_to(self, item: Item, *, parent: Tag | None = None) -> Tag:
         if self._app is None:
             raise DearfyAppNoInitedError('The application is not initialized.')

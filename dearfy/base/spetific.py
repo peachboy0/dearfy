@@ -38,6 +38,8 @@ class Showable(metaclass=RequireBasesMeta):
 
 @require_bases(Item)
 class Variable(Generic[_T], metaclass=RequireBasesMeta):
+    REPR_HIDDEN_KWARGS = ('value', 'default_value')
+
     @property
     def value(self) -> _T:
         return dpg.get_value(self._config['tag'])
