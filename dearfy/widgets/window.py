@@ -10,6 +10,7 @@ from dearfy.validator import ValidateKwargsAction
 # ! Window Class
 
 class Window(Item, Showable):
+    REPR_HIDDEN_KWARGS = ('on_close', )
     REFERENCE_METHOD = dpg.add_window
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
     

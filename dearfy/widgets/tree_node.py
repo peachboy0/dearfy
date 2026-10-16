@@ -19,6 +19,7 @@ class TreeNodeLines(Enum):
 # ! Tree Node Item Class
 
 class TreeNode(Item, Showable):
+    REPR_HIDDEN_KWARGS = ('drag_callback', 'drop_callback')
     REFERENCE_METHOD = dpg.add_tree_node
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
 

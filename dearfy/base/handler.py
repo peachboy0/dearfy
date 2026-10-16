@@ -22,6 +22,7 @@ class ItemHandlerKwargs(ItemKwargs):
 # ! Handler Base Class
 
 class ItemHandler(Item, Showable):
+    REPR_HIDDEN_KWARGS: tuple[str, ...] = ('callback', )
     NODE_CONTAINERABLE: bool = False
 
     REFERENCE_METHOD: Callable[..., Any] | None = None

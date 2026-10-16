@@ -10,7 +10,7 @@ from dearfy.validator import ValidateKwargsAction
 # ! Input Integer Class
 
 class InputInt(Item, Enableable, Showable, Variable[int]):
-    REPR_HIDDEN_KWARGS = ('value', 'default_value')
+    REPR_HIDDEN_KWARGS = ('value', 'default_value', 'callback', 'drag_callback', 'drop_callback')
     REFERENCE_METHOD = dpg.add_input_int
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
     #NODE_CONTAINERABLE = False
@@ -84,7 +84,7 @@ class InputInt(Item, Enableable, Showable, Variable[int]):
 # ! Input Float Class
 
 class InputFloat(Item, Enableable, Showable, Variable[float]):
-    REPR_HIDDEN_KWARGS = ('value', 'default_value')
+    REPR_HIDDEN_KWARGS = ('value', 'default_value', 'callback', 'drag_callback', 'drop_callback')
     REFERENCE_METHOD = dpg.add_input_float
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
     #NODE_CONTAINERABLE = False
@@ -160,7 +160,7 @@ class InputFloat(Item, Enableable, Showable, Variable[float]):
 # ! Input Float Class
 
 class InputDouble(Item, Enableable, Showable, Variable[float]):
-    REPR_HIDDEN_KWARGS = ('value', 'default_value')
+    REPR_HIDDEN_KWARGS = ('value', 'default_value', 'callback', 'drag_callback', 'drop_callback')
     REFERENCE_METHOD = dpg.add_input_double
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
     #NODE_CONTAINERABLE = False

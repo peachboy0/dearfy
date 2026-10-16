@@ -63,6 +63,7 @@ class TabBar(Item, Showable):
 # ! Tab Item Class
 
 class Tab(Item, Showable):
+    REPR_HIDDEN_KWARGS = ('drop_callback', )
     REFERENCE_METHOD = dpg.add_tab
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
 

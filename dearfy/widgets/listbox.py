@@ -10,7 +10,7 @@ from dearfy.validator import ValidateKwargsAction
 # ! List Box Item Class
 
 class ListBox(Item, Showable, Enableable, Variable[str]):
-    REPR_HIDDEN_KWARGS = ('value', 'default_value')
+    REPR_HIDDEN_KWARGS = ('value', 'default_value', 'callback', 'drag_callback', 'drop_callback')
     REFERENCE_METHOD = dpg.add_listbox
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
 

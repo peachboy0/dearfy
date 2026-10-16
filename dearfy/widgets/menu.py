@@ -40,6 +40,7 @@ class MenuBar(Item, Showable):
 # ! Menu Item Class
 
 class Menu(Item, Showable, Enableable):
+    REPR_HIDDEN_KWARGS = ('drop_callback', )
     REFERENCE_METHOD = dpg.add_menu
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
 
@@ -84,6 +85,7 @@ class Menu(Item, Showable, Enableable):
 # ! Menu Item Class
 
 class MenuItem(Item, Showable, Enableable):
+    REPR_HIDDEN_KWARGS = ('callback', 'drop_callback')
     REFERENCE_METHOD = dpg.add_menu_item
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
 

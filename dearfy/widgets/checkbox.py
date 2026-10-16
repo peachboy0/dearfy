@@ -10,7 +10,7 @@ from dearfy.validator import ValidateKwargsAction
 # ! Checkbox Class
 
 class Checkbox(Item, Showable, Enableable, Variable[bool]):
-    REPR_HIDDEN_KWARGS = ('value', 'default_value')
+    REPR_HIDDEN_KWARGS = ('value', 'default_value', 'callback', 'drag_callback', 'drop_callback')
     REFERENCE_METHOD = dpg.add_checkbox
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
 

@@ -10,6 +10,7 @@ from dearfy.validator import ValidateKwargsAction
 # ! Button Class
 
 class Button(Item, Enableable, Showable):
+    REPR_HIDDEN_KWARGS = ('callback', 'drag_callback', 'drop_callback')
     REFERENCE_METHOD = dpg.add_button
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
 

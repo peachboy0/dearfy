@@ -10,6 +10,7 @@ from dearfy.validator import ValidateKwargsAction
 # ! Group Class
 
 class Group(Item, Enableable, Showable):
+    REPR_HIDDEN_KWARGS = ('drag_callback', 'drop_callback')
     REFERENCE_METHOD = dpg.add_group
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
 

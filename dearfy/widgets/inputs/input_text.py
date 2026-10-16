@@ -10,7 +10,7 @@ from dearfy.validator import ValidateKwargsAction
 # ! Input Text Class
 
 class InputText(Item, Enableable, Showable, Variable[str]):
-    REPR_HIDDEN_KWARGS = ('value', 'default_value')
+    REPR_HIDDEN_KWARGS = ('value', 'default_value', 'callback', 'drag_callback', 'drop_callback')
     REFERENCE_METHOD = dpg.add_input_text
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
     #NODE_CONTAINERABLE = False
