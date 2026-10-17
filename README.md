@@ -1,4 +1,7 @@
-# dearfy
+<div align="center">
+    <img src="/icon.png" title="dearfy" alt="dearfy" width="256" height="256"/>
+</div>
+<h1 align="center">dearfy</h1>
 
 ## Desription
 

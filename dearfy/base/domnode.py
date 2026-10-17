@@ -74,47 +74,6 @@ class DOMNode:
     def _pop_child(self, __index: int=-1, /) -> DOMNode:
         return self._node_children.pop(__index)
 
-    @deprecated("This object will be deleted!")
-    def _get_node_by_attr(self, __attr_name: str, __attr_value: Any, /) -> DOMNode:
-        if hasattr(self, __attr_name):  # noqa: SIM102
-            if getattr(self, __attr_name) == __attr_value:
-                return self
-        for node in self._node_children:
-            if hasattr(node, __attr_name):  # noqa: SIM102
-                if getattr(node, __attr_name) == __attr_value:
-                    return node
-        for node in self._node_children:
-            try:
-                return node._get_node_by_attr(__attr_name, __attr_value)
-            except AttributeError:
-                pass
-        raise AttributeError('Node with this attribute value does not exist.')
-
-    @deprecated("This object will be deleted!")
-    def _search_node_by_strattr(self, __attr_name: str, __attr_mask: str, /) -> DOMNode:
-        if isinstance(attr_value := getattr(self, __attr_name, None), str):  # noqa: SIM102
-            if fnmatch.fnmatch(attr_value, __attr_mask):
-                return self
-        for node in self._node_children:
-            if isinstance(attr_value := getattr(node, __attr_name, None), str):  # noqa: SIM102
-                if fnmatch.fnmatch(attr_value, __attr_mask):
-                    return node
-        for node in self._node_children:
-            try:
-                return node._search_node_by_strattr(__attr_name, __attr_mask)
-            except AttributeError:
-                pass
-        return AttributeError('Node with this attribute value does not exist.')
-
-    @deprecated("This object will be deleted!")
-    def _search_nodes_by_strattr(self, __attr_name: str, __attr_mask: str, /) -> Iterator[DOMNode]:
-        yield from ()
-        if isinstance(attr_value := getattr(self, __attr_name, None), str):  # noqa: SIM102
-            if fnmatch.fnmatch(attr_value, __attr_mask):
-                yield self
-        for node in self._node_children:
-            yield from node._search_nodes_by_strattr(__attr_name, __attr_mask)
-    
     def _to_rich_tree(self) -> Tree:
         if self.NODE_CONTAINERABLE:
             s = '▼' if self._node_children else '►'

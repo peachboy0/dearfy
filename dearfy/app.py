@@ -176,7 +176,7 @@ class App(DOMNode):
 
     def push_item_to(self, obj: Composable, *, parent: Tag | None = None) -> None:
         loguru.logger.trace(f"[red]Call[/red]: {self!r}.push_item_to({obj!r}, parent={parent!r})")
-        parent_item: Item | App = self._get_node_by_attr('tag', parent) if parent is not None else self
+        parent_item: Item | App = self.get_item(parent) if parent is not None else self
         loguru.logger.trace(f"{self!r}.push_item_to(...).{parent_item=!r}")
         if isinstance(obj, Item):
             loguru.logger.trace(f"{self!r}.push_item_to(...).obj is [green]Item[/green]")
