@@ -24,6 +24,15 @@ class Font(Item):
         pixel_snapV: bool = False,
         **kwargs: Unpack[ItemKwargs]
     ) -> None:
+        """Loading a font file (in OTF/TTF format).
+
+        Args:
+            file (FilePath): Path to the font file in OTF/TTF format.
+            size (int): The size in points at which the font will be loaded.
+            parent (Tag | None, optional): Tag value of the parent object. Defaults to None.
+            pixel_snapH (bool, optional): Aligns the horizontal position of each character to pixel boundaries. Useful if you render text in parts (for example, for the purpose of coloring). Defaults to False.
+            pixel_snapV (bool, optional): Aligns vertical movement to pixel boundaries. Defaults to False.
+        """
         super().__init__(
             file=str(Path(file).resolve()),
             size=size,

@@ -1,11 +1,10 @@
 from __future__ import annotations
 
-import fnmatch
 from collections import deque
 from types import TracebackType
 
 from rich.tree import Tree
-from typing_extensions import Any, ClassVar, Iterator, Self, deprecated  # noqa: UP035
+from typing_extensions import ClassVar, Iterator, Self # noqa: UP035
 
 # ! DOM Node Class
 

@@ -86,7 +86,8 @@ class App(DOMNode):
     def __dearfy_init__(self) -> None: ...
     def __dearfy_postinit__(self) -> None: ...
 
-    def before_compose(self) -> None: ...
+    def before_compose(self) -> None:
+        """Called before compose."""
 
     def on_ready(self) -> None:
         """Called after full initialization, before the main loop starts."""

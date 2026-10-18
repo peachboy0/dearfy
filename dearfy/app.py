@@ -251,7 +251,7 @@ class App(DOMNode):
         """Called after full initialization, before the main loop starts."""
 
     def before_compose(self) -> None:
-        ...
+        """Called before compose."""
 
     def on_preparing(self) -> None:
         """Called before initialization, when the context has NOT yet been created."""

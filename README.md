@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="/icon.png" title="dearfy" alt="dearfy" width="256" height="256"/>
+    <img src="https://raw.githubusercontent.com/peachboy0/dearfy/refs/heads/dev/icon.png" title="dearfy" alt="dearfy" width="256" height="256"/>
 </div>
 <h1 align="center">dearfy</h1>
 
@@ -9,7 +9,7 @@
 
 The project is fully open-source (MIT License) and was inspired by the object-oriented interface building approach of [Textual](https://github.com/Textualize/textual) (a popular library for creating Terminal User Interfaces).
 
-## Instatting
+## Installing
 
 Direct installation from [PyPi](https://pypi.org/) via `pip`:
 ```

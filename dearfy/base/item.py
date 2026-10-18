@@ -41,6 +41,14 @@ class Item(DOMNode):
         tag: Tag | None = None,
         **kwargs: object
     ) -> None:
+        """Base class for interface objects.
+
+        Args:
+            label (str | None, optional): Used as a name for interface objects. Defaults to None.
+            user_data (Any | None, optional): _description_. Defaults to None.
+            use_internal_label (bool, optional): _description_. Defaults to True.
+            tag (Tag | None, optional): _description_. Defaults to None.
+        """
         super().__init__()
         self._app = None
         self._config = {
@@ -203,7 +211,7 @@ class Item(DOMNode):
         new_parent._add_child(self)
     
     def get_configuration(self) -> dict[str, Any]:
-        return dpg.get_item_configuration(self._config['tag'])
+        return dpg.get_item_configuration(self.tag)
     
     def configurate(self, **kwargs: object) -> None:
         if self.inited:

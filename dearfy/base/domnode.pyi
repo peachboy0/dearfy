@@ -2,7 +2,7 @@ from collections import deque
 from types import TracebackType
 
 from rich.tree import Tree
-from typing_extensions import Any, ClassVar, Iterator, Self, TypeVar, deprecated  # noqa: UP035
+from typing_extensions import ClassVar, Iterator, Self, TypeVar  # noqa: UP035
 
 # ! Type Vars
 
