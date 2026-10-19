@@ -3,8 +3,9 @@ from __future__ import annotations
 from collections import deque
 from types import TracebackType
 
+import loguru
 from rich.tree import Tree
-from typing_extensions import ClassVar, Iterator, Self # noqa: UP035
+from typing_extensions import ClassVar, Iterator, Self  # noqa: UP035
 
 # ! DOM Node Class
 
@@ -90,6 +91,7 @@ class DOMNode:
                 s = '•'
             branch = parent_tree.add(f"{s} {child!r}")
             self._build_rich_tree_recursive(child, branch)
-    
+
     def compose(self) -> Iterator[DOMNode]:
+        loguru.logger.trace(f"[red]Call[/red]: {self!r}.compose()")
         yield from ()

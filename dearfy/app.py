@@ -10,6 +10,7 @@ from dearfy.base import DOMNode, Item
 from dearfy.field import field
 from dearfy.functions import formatting_kwargs, generator_safe, get_method_needed
 from dearfy.typing import Color, DearfyObject, FilePath, Tag
+import dearfy.icon
 
 # ! Types
 
@@ -57,11 +58,12 @@ class App(DOMNode):
     ) -> None:
         super().__init__()
         self._state: AppState = AppState.NONE
+        icon_path = dearfy.icon.get_icon_path()
         self._gkwagrs = {
             'create_viewport': {
                 'title': title,
-                'small_icon': field(small_icon, '', nullable=False),
-                'large_icon': field(large_icon, '', nullable=False),
+                'small_icon': field(small_icon, icon_path, nullable=False),
+                'large_icon': field(large_icon, icon_path, nullable=False),
                 'width': width,
                 'height': height,
                 'x_pos': x_pos,
@@ -110,6 +112,8 @@ class App(DOMNode):
             if self._current_node:
                 self._current_node._add_child(child)
         self._nodes.clear()
+        for child in self._node_children:
+            child.__dearfy_compose__()
     
     def __dearfy_preparing__(self) -> None:
         for child in self._node_children:
@@ -294,4 +298,4 @@ class App(DOMNode):
         self.__dearfy_destroy__()
         loguru.logger.trace("{tree}", tree=self._to_rich_tree())
 
-action = App._actioner.action 
+action = App._actioner.action

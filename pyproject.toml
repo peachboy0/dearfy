@@ -1,6 +1,6 @@
 [project]
 name = "dearfy"
-version = "0.1.10a1"
+version = "0.1.11a1"
 description = "A library for simplifying the creation of complex GUIs using DearPyGUI."
 readme = "README.md"
 requires-python = ">=3.11,<3.15"
@@ -10,7 +10,11 @@ name = "Romanin"
 email = "semina054@gmail.com"
 
 [dependency-groups]
-dev = [ "toml>=0.10.2", "uv>=0.12.3",]
+dev = [
+ "pillow>=13.0.0",
+ "toml>=0.10.2",
+ "uv>=0.12.3",
+]
 
 [project.license]
 text = "MIT"
