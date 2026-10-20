@@ -165,7 +165,7 @@ class TableColumn(Item, Showable, Enableable):
             indent_enable=indent_enable,
             indent_disable=indent_disable,
             angled_header=angled_header,
-            no_header_label=no_header_label
+            no_header_label=no_header_label,
             **kwargs
         )
 
