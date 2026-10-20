@@ -9,7 +9,7 @@ from typing_extensions import Any, Callable, Iterable, Iterator, NotRequired, Pa
 from dearfy.base.domnode import DOMNode
 from dearfy.exceptions import DearfyAppNoInitedError
 from dearfy.field import field
-from dearfy.functions import formatting_kwargs, get_method_needed
+from dearfy.functions import formatting_kwargs, generator_safe, get_method_needed
 from dearfy.typing import Tag
 from dearfy.validator import ValidatorKwargsBase
 
@@ -106,6 +106,15 @@ class Item(DOMNode):
         if self.tag != 0:
             dpg.set_item_user_data(self.tag, v)
         self._config['user_data'] = v
+
+    def __dearfy_compose__(self) -> None:
+        self._nodes.append(self)
+        for child in generator_safe(self.compose):
+            if self._current_node:
+                self._current_node._add_child(child)
+        self._nodes.clear()
+        for child in self._node_children:
+            child.__dearfy_compose__()
     
     def __dearfy_preparing__(self, app: object) -> None:
         loguru.logger.trace(f'[red]Call[/red]: {self!r}.__dearfy_preparing__({app!r})')

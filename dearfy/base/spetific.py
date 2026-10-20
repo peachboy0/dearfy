@@ -16,23 +16,27 @@ _T = TypeVar('_T')
 class Enableable(metaclass=RequireBasesMeta):
     @property
     def enabled(self) -> bool:
-        return self._config['enabled']
-    
-    @enabled.setter
-    def enabled(self, value: bool) -> None:
-        self.configurate(enabled=value)
+        return bool(dpg.is_item_enabled(self.tag))
+
+    def enable(self) -> None:
+        dpg.enable_item(self.tag)
+
+    def disable(self) -> None:
+        dpg.disable_item(self.tag)
 
 # ! Showable Spetific Class
 
 @require_bases(Item)
 class Showable(metaclass=RequireBasesMeta):
+    @property
+    def shown(self) -> bool:
+        return dpg.is_item_shown(self.tag)
+
     def show(self) -> None:
         dpg.show_item(self.tag)
-        self._config['show'] = True
     
     def hide(self) -> None:
         dpg.hide_item(self.tag)
-        self._config['show'] = False
 
 # ! Variable Spetific Class
 
