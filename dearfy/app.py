@@ -294,4 +294,7 @@ class App(DOMNode):
         self.__dearfy_destroy__()
         loguru.logger.trace("{tree}", tree=self._to_rich_tree())
 
+    def stop(self) -> None:
+        dpg.stop_dearpygui()
+
 action = App._actioner.action 

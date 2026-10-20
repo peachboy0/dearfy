@@ -131,6 +131,7 @@ class App(DOMNode):
         """Shows the standard style editor window."""
 
     def run(self) -> None: ...
+    def stop(self) -> None: ...
 
 def action(
     name: str,
