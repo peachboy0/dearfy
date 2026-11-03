@@ -10,7 +10,7 @@ from dearfy.validator import ValidateKwargsAction
 # ! Combo Item Class
 
 class Combo(Item, Showable, Enableable, Variable[str]):
-    REPR_HIDDEN_KWARGS = ('callback', 'drag_callback', 'drop_callback')
+    REPR_HIDDEN_KWARGS = ('callback', 'drag_callback', 'drop_callback', 'items', 'default_value')
     REFERENCE_METHOD = dpg.add_combo
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
 

@@ -5,12 +5,12 @@ import dearpygui.dearpygui as dpg
 import loguru
 from typing_extensions import Any, Callable, Generator, Iterable, Iterator, TypeAlias  # noqa: UP035
 
+import dearfy.icon
 from dearfy.action import Action, Actioner
 from dearfy.base import DOMNode, Item
 from dearfy.field import field
 from dearfy.functions import formatting_kwargs, generator_safe, get_method_needed
 from dearfy.typing import Color, DearfyObject, FilePath, Tag
-import dearfy.icon
 
 # ! Types
 
