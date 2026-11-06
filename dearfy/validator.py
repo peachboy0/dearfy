@@ -82,6 +82,8 @@ class ValidateKwargsDate(ValidatorKwargsBase):
 
     @staticmethod
     def _validate_value(value: datetime | DatePickerValue | str | None) -> DatePickerValue | None:
+        if isinstance(value, dict):
+            return value
         dt = None
         if isinstance(value, datetime):
             dt = value
@@ -90,8 +92,6 @@ class ValidateKwargsDate(ValidatorKwargsBase):
                 dt = datetime.strptime(value, "%G-W%V-%u")
             except:  # noqa: E722
                 dt = dateparser.parse(value)
-        elif isinstance(value, DatePickerValue):
-            return value
         if dt is not None:
             {'month_day': dt.day, 'year': dt.year - 1900, 'month': dt.month - 1}
 
@@ -103,9 +103,11 @@ class ValidateKwargsDate(ValidatorKwargsBase):
             nullable=False,
             default_wrapped=False,
             wrap=self._validate_value,
-            default_factory=lambda: {
-                'month_day': datetime.now().day,
-                'year': datetime.now().year - 1900,
-                'month': datetime.now().month - 1
-            }
+            default_factory=(
+                lambda: {
+                    'month_day': datetime.now().day,
+                    'year': datetime.now().year - 1900,
+                    'month': datetime.now().month - 1
+                }
+            )
         )
