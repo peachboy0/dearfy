@@ -28,7 +28,7 @@ wheels = [
 
 [[package]]
 name = "dearfy"
-version = "0.1.14a1"
+version = "0.1.14a1.post2"
 source = { virtual = "." }
 dependencies = [
     { name = "dateparser" },
