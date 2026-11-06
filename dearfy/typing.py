@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 from os import PathLike
 from pathlib import Path, PosixPath, PurePath, PurePosixPath, PureWindowsPath, WindowsPath
 
@@ -32,7 +32,7 @@ class DatePickerValue(TypedDict):
     year_day: NotRequired[int]
     daylight_savings: NotRequired[int]
 
-DateLike: TypeAlias         = str | datetime | DatePickerValue
+DateLike: TypeAlias         = str | int | float | date | datetime | DatePickerValue
 
 # ! Constant for Type
 

@@ -6,7 +6,7 @@ from typing_extensions import Unpack
 from dearfy.base import Enableable, Item, ItemKwargs, Showable, Variable
 from dearfy.field import field
 from dearfy.functions import get_method_needed
-from dearfy.typing import Callback, DateLike, DatePickerValue, Position, Tag
+from dearfy.typing import Callback, DateLike, Position, Tag
 from dearfy.validator import ValidateKwargsAction, ValidateKwargsDate
 
 # ! Date Picker Widget Class
@@ -46,13 +46,7 @@ class DatePicker(Item, Showable, Enableable, Variable):
             filter_key=filter_key,
             tracked=tracked,
             track_offset=track_offset,
-            default_value=field(
-                default_value,
-                nullable=False,
-                default_factory=datetime.now,
-                default_wrapped=True,
-                wrap=ValidateKwargsDate._validate_value
-            ),
+            default_value=default_value,
             level=level,
             **kwargs
         )
@@ -64,9 +58,8 @@ class DatePicker(Item, Showable, Enableable, Variable):
 
     @property
     def value(self) -> datetime:
-        value: DatePickerValue = dpg.get_value(self.tag)
-        return datetime(value['year'] + 1900, value['month'] + 1, value['month_day'])
+        return ValidateKwargsDate._to_datetime(dpg.get_value(self.tag))
 
     @value.setter
     def value(self, value: DateLike) -> None:
-        dpg.set_value(self.tag, ValidateKwargsDate._validate_value(value))
+        dpg.set_value(self.tag, ValidateKwargsDate._to_value(value))

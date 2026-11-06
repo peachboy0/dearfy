@@ -1,12 +1,12 @@
 import functools
-from datetime import datetime
+from datetime import date, datetime
 
 import dateparser
 
 from dearfy.action import Action
 from dearfy.field import field
 from dearfy.functions import formatting_kwargs
-from dearfy.typing import DatePickerValue
+from dearfy.typing import DateLike, DatePickerValue
 
 # ! Validator Kwargs Base
 
@@ -81,33 +81,42 @@ class ValidateKwargsDate(ValidatorKwargsBase):
         super().__init__(app=app, **kwargs)
 
     @staticmethod
-    def _validate_value(value: datetime | DatePickerValue | str | None) -> DatePickerValue | None:
-        if isinstance(value, dict):
-            return value
-        dt = None
+    def _to_datetime(value: DateLike | None) -> datetime:
         if isinstance(value, datetime):
-            dt = value
+            return value
+        elif isinstance(value, date):
+            return datetime(value.year, value.month, value.day)
         elif isinstance(value, str):
+            result = dateparser.parse(value)
+            if result is not None:
+                return result
+        elif isinstance(value, (float, int)):
+            return datetime.fromtimestamp(float(value))
+        elif isinstance(value, dict):
             try:
-                dt = datetime.strptime(value, "%G-W%V-%u")
-            except:  # noqa: E722
-                dt = dateparser.parse(value)
-        if dt is not None:
-            {'month_day': dt.day, 'year': dt.year - 1900, 'month': dt.month - 1}
+                return datetime(value['year'] + 1900, value['month'] + 1, value['month_day'])
+            except KeyError:
+                raise ValueError('Incorrect dictionary format')
+        raise TypeError('Unsupported value type.')
 
-    def validate_value(self, value: datetime | DatePickerValue | str | None) -> DatePickerValue:
-        if (result := (value)) is not None:
-            return result
-        return field(
-            value,
+    @staticmethod
+    def _to_value(value: DateLike | None) -> DatePickerValue:
+        if isinstance(value, dict) and ('year' in value) and ('month' in value) and ('month_day' in value):
+            return value
+        dt = ValidateKwargsDate._to_datetime(value)
+        return {'year': dt.year - 1900, 'month': dt.month - 1, 'month_day': dt.day}
+
+    def _validate_value(self, value: DateLike | None) -> DatePickerValue | None:
+        try:
+            return self._to_value(value)
+        except (ValueError, TypeError):
+            pass
+
+    def validate_value(self, value: DateLike | None) -> DatePickerValue:
+        dt = datetime.now()
+        return field(value,
             nullable=False,
             default_wrapped=False,
             wrap=self._validate_value,
-            default_factory=(
-                lambda: {
-                    'month_day': datetime.now().day,
-                    'year': datetime.now().year - 1900,
-                    'month': datetime.now().month - 1
-                }
-            )
+            default_factory=( lambda: {'year': dt.year - 1900, 'month': dt.month - 1, 'month_day': dt.day} )
         )
