@@ -1,6 +1,7 @@
 from dearfy.widgets.button import Button
 from dearfy.widgets.checkbox import Checkbox
 from dearfy.widgets.combo import Combo
+from dearfy.widgets.datepicker import DatePicker
 from dearfy.widgets.group import Group
 from dearfy.widgets.inputs import *
 from dearfy.widgets.listbox import ListBox
@@ -19,6 +20,7 @@ __all__ = [
     'Button',
     'Checkbox',
     'Combo',
+    'DatePicker',
     'Group',
     'InputDouble',
     'InputFloat',
@@ -41,5 +43,5 @@ __all__ = [
     'Tooltip',
     'TreeNode',
     'TreeNodeLines',
-    'Window'
+    'Window',
 ]

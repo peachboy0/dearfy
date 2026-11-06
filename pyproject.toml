@@ -1,10 +1,16 @@
 [project]
 name = "dearfy"
-version = "0.1.13a1"
+version = "0.1.14a1"
 description = "A library for simplifying the creation of complex GUIs using DearPyGUI."
 readme = "README.md"
 requires-python = ">=3.11,<3.15"
-dependencies = [ "dearpygui>=2.3.1", "loguru>=0.7.3", "rich>=15.0.0", "typing-extensions>=4.16.0",]
+dependencies = [
+ "dateparser>=1.5.0",
+ "dearpygui>=2.3.1",
+ "loguru>=0.7.3",
+ "rich>=15.0.0",
+ "typing-extensions>=4.16.0",
+]
 [[project.authors]]
 name = "Romanin"
 email = "semina054@gmail.com"

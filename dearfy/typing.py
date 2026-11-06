@@ -1,8 +1,9 @@
+from datetime import datetime
 from os import PathLike
 from pathlib import Path, PosixPath, PurePath, PurePosixPath, PureWindowsPath, WindowsPath
 
 import dearpygui.dearpygui as dpg
-from typing_extensions import Any, Callable, Iterable, Literal, Protocol, TypeAlias  # noqa: UP035
+from typing_extensions import Any, Callable, Iterable, Literal, NotRequired, Protocol, TypeAlias, TypedDict  # noqa: UP035
 
 # ! Warning Types
 
@@ -18,6 +19,20 @@ class DearfyObject(Protocol):
     def __dearfy_postinit__(self) -> None: ...
     def __dearfy_destroy__(self) -> None: ...
 
+# ! Spetific Typing
+
+class DatePickerValue(TypedDict):
+    sec: NotRequired[int]
+    min: NotRequired[int]
+    hour: NotRequired[int]
+    month_day: int
+    month: int
+    year: int
+    week_day: NotRequired[int]
+    year_day: NotRequired[int]
+    daylight_savings: NotRequired[int]
+
+DateLike: TypeAlias         = str | datetime | DatePickerValue
 
 # ! Constant for Type
 
@@ -34,18 +49,18 @@ FONT_RANGE_HINT: dict[str, int] = {
 
 # ! Typing
 
-FilePath: TypeAlias     = str | PathLike[str] | Path | PosixPath | WindowsPath | PurePath | PurePosixPath | PureWindowsPath
+FilePath: TypeAlias         = str | PathLike[str] | Path | PosixPath | WindowsPath | PurePath | PurePosixPath | PureWindowsPath
 
 # ! DearPyGUI Typing
 
-Tag: TypeAlias          = str | int
-Position: TypeAlias     = tuple[int, int] | Iterable[int]
-Size: TypeAlias         = tuple[int, int] | Iterable[int]
-Color: TypeAlias        = tuple[int, int, int, int] | Iterable[int]
+Tag: TypeAlias              = str | int
+Position: TypeAlias         = tuple[int, int] | Iterable[int]
+Size: TypeAlias             = tuple[int, int] | Iterable[int]
+Color: TypeAlias            = tuple[int, int, int, int] | Iterable[int]
 
-FontChar: TypeAlias = int
-FontRange: TypeAlias = tuple[FontChar, FontChar]
-FontRangeHint: TypeAlias = Literal[
+FontChar: TypeAlias         = int
+FontRange: TypeAlias        = tuple[FontChar, FontChar]
+FontRangeHint: TypeAlias    = Literal[
     'default',
     'japanese',
     'chinese-full', 'chinese-simple', 'chinese-simplified-common',
@@ -54,5 +69,5 @@ FontRangeHint: TypeAlias = Literal[
     'vietnamese'
 ]
 
-Callback: TypeAlias     = \
+Callback: TypeAlias         = \
     Callable[[str], Any] | Callable[[str, Any | None], Any] | Callable[[str, Any | None, Any | None], Any] | str | tuple[str, str]

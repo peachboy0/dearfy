@@ -24,4 +24,4 @@ class ToggleOpenItemHandler(ItemHandler):
             kwargs = get_method_needed(dpg.add_item_toggled_open_handler, **self._config)
             kwargs.pop('parent', None)
             self._config['tag'] = dpg.add_item_toggled_open_handler(**kwargs)
-        dpg.bind_item_handler_registry(parent, handler) 
+        dpg.bind_item_handler_registry(parent, handler)

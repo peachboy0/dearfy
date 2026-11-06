@@ -1,3 +1,10 @@
+import datetime
+import os
+
+os.environ['LOGURU_AUTOINIT'] = 'False'
+os.environ['LOGURU_LEVEL'] = 'TRACE'
+
+from loguru import logger
 from typing_extensions import Any  # noqa: UP035
 
 from dearfy.app import App, action
@@ -20,6 +27,10 @@ class MyApp(App):
             with Group(horizontal=True):
                 yield Checkbox()
                 yield Text("It's okay?")
+            yield DatePicker(
+                callback=lambda sender, app_data: logger.trace(f'{self}: {app_data=!r}'),
+                #default_value=datetime.datetime.now()
+            )
 
     @action('SetPrimaryWindow', callmode='one')
     def action_SetPrimaryWindow(self, sender: Tag, app_data: Tag, user_data: Any) -> None:
