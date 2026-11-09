@@ -28,19 +28,19 @@ wheels = [
 
 [[package]]
 name = "dearfy"
-version = "0.1.15a1"
+version = "0.1.16a1"
 source = { virtual = "." }
 dependencies = [
     { name = "dateparser" },
     { name = "dearpygui" },
     { name = "loguru" },
+    { name = "pillow" },
     { name = "rich" },
     { name = "typing-extensions" },
 ]
 
 [package.dev-dependencies]
 dev = [
-    { name = "pillow" },
     { name = "toml" },
     { name = "uv" },
 ]
@@ -50,13 +50,13 @@ requires-dist = [
     { name = "dateparser", specifier = ">=1.5.0" },
     { name = "dearpygui", specifier = ">=2.3.1" },
     { name = "loguru", specifier = ">=0.7.3" },
+    { name = "pillow", specifier = ">=13.0.0" },
     { name = "rich", specifier = ">=15.0.0" },
     { name = "typing-extensions", specifier = ">=4.16.0" },
 ]
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "pillow", specifier = ">=13.0.0" },
     { name = "toml", specifier = ">=0.10.2" },
     { name = "uv", specifier = ">=0.12.3" },
 ]

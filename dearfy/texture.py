@@ -1,11 +1,7 @@
-try:
-    from PIL import Image
-except ImportError:
-    Image = None
-
 from pathlib import Path
 
 import dearpygui.dearpygui as dpg
+from PIL import Image
 from typing_extensions import Self, Unpack  # noqa: UP035
 
 from dearfy.base import Item, ItemKwargs
