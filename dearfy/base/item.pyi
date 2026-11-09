@@ -46,6 +46,7 @@ class Item(DOMNode):
     _node_children: list[Item]
     _app: App | None
     _config: dict[str, Any]
+    _extra: dict[str, Any]
     _state: int
     """Bit flag of item status.
 

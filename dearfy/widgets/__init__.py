@@ -10,7 +10,7 @@ from dearfy.widgets.menu import Menu, MenuBar, MenuItem
 from dearfy.widgets.popup import Popup
 from dearfy.widgets.radio_button import RadioButton
 from dearfy.widgets.separator import Separator
-from dearfy.widgets.tables import Table, TableCell, TableColumn, TableRow
+from dearfy.widgets.tables import AutoTable, Table, TableCell, TableColumn, TableColumnKwargs, TableKwargs, TableRow
 from dearfy.widgets.tabs import Tab, TabBar
 from dearfy.widgets.text import Text
 from dearfy.widgets.tooltip import Tooltip
@@ -18,6 +18,7 @@ from dearfy.widgets.tree_node import TreeNode, TreeNodeLines
 from dearfy.widgets.window import Window
 
 __all__ = [
+    'AutoTable',
     'Button',
     'Checkbox',
     'ChildWindow',
@@ -40,6 +41,8 @@ __all__ = [
     'Table',
     'TableCell',
     'TableColumn',
+    'TableColumnKwargs',
+    'TableKwargs',
     'TableRow',
     'Text',
     'Tooltip',

@@ -58,6 +58,7 @@ class Item(DOMNode):
             'use_internal_label': use_internal_label,
             **kwargs
         }
+        self._extra = {}
         self._state = 0
     
     def __str__(self) -> str:
