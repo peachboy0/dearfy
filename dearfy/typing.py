@@ -57,6 +57,7 @@ Tag: TypeAlias              = str | int
 Position: TypeAlias         = tuple[int, int] | Iterable[int]
 Size: TypeAlias             = tuple[int, int] | Iterable[int]
 Color: TypeAlias            = tuple[int, int, int, int] | Iterable[int]
+ImageData: TypeAlias        = tuple[float, ...] | Iterable[float]
 
 FontChar: TypeAlias         = int
 FontRange: TypeAlias        = tuple[FontChar, FontChar]

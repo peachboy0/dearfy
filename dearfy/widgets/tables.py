@@ -1,7 +1,7 @@
 import itertools
 
 import dearpygui.dearpygui as dpg
-from typing_extensions import Iterable, Unpack, Mapping  # noqa: UP035
+from typing_extensions import Iterable, Mapping, Unpack  # noqa: UP035
 
 from dearfy.base import Enableable, Item, ItemKwargs, Showable
 from dearfy.field import field
@@ -323,20 +323,46 @@ class AutoTable(Table):
         **kwargs: Unpack[TableKwargs]
     ) -> None:
         super().__init__(**kwargs)
-        columns_kwargs = field(dict(columns_kwargs) if isinstance(columns_kwargs, dict) else list(columns_kwargs), default_factory=dict, nullable=False)
+        if isinstance(columns_kwargs, Mapping):
+            valid_columns_kwargs = dict(columns_kwargs)
+        elif isinstance(columns_kwargs, Iterable):
+            valid_columns_kwargs = tuple(columns_kwargs)
+        else:
+            valid_columns_kwargs = columns_kwargs
+        valid_columns_kwargs: TableColumnKwargs | tuple[TableColumnKwargs, ...] | None
+        columns_kwargs = field(valid_columns_kwargs, default_factory=dict, nullable=False)
         self._extra['columns'] = columns
         self._extra['columns_kwargs'] = columns_kwargs
-        if (columns > 0):
-            if isinstance(columns_kwargs, dict):
-                for _ in range(columns):
-                    self._node_children.append(TableColumn(**columns_kwargs))
-            elif isinstance(columns_kwargs, Iterable):
-                if columns == len(columns_kwargs):
-                    _iter = zip(range(columns), columns_kwargs)
-                elif columns > len(columns_kwargs):
-                    _iter = itertools.zip_longest(range(columns), columns_kwargs, fillvalue=None)
-                else:
-                    raise ValueError('The number of columns is less than the length of the configuration list for them.')
-                for _, column_kwargs in _iter:
-                    if column_kwargs:
-                        self._node_children.append(TableColumn(**column_kwargs))
+
+    # def __dearfy_init__(self) -> None:
+    #     kwargs = get_method_needed(dpg.add_table, **self._config)
+    #     columns: int = self._extra['columns']
+    #     columns_kwargs: TableColumnKwargs | tuple[TableColumnKwargs, ...] = self._extra['columns_kwargs']
+    #     if (columns > 0):
+    #         if isinstance(columns_kwargs, dict):
+    #             for _ in range(columns):
+    #                 self._node_children.append(TableColumn(**columns_kwargs))
+    #         elif isinstance(columns_kwargs, Iterable):
+    #             if columns == len(columns_kwargs):
+    #                 _iter = zip(range(columns), columns_kwargs)
+    #             elif columns > len(columns_kwargs):
+    #                 _iter = itertools.zip_longest(range(columns), columns_kwargs, fillvalue=None)
+    #             else:
+    #                 raise ValueError('The number of columns is less than the length of the configuration list for them.')
+    #             for _, column_kwargs in _iter:
+    #                 if column_kwargs:
+    #                     self._node_children.append(TableColumn(**column_kwargs))
+    #     if self.containered:
+    #         with dpg.table(**kwargs) as tag:
+    #             super().__dearfy_init__()
+    #     else:
+    #         tag = dpg.add_table(**kwargs)
+    #         super().__dearfy_init__()
+    #     self._config['tag'] = tag
+
+    #     loguru.logger.trace(f'[red]Call[/red]: {self!r}.__dearfy_init__()')
+    #     if bool((self._state & 0b0100) >> 2):
+    #         return
+    #     for child in self._node_children:
+    #         child.__dearfy_init__()
+    #     self._state |= (1 << 2)
