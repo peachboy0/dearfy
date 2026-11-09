@@ -1,5 +1,6 @@
 from dearfy.widgets.button import Button
 from dearfy.widgets.checkbox import Checkbox
+from dearfy.widgets.child import ChildWindow
 from dearfy.widgets.combo import Combo
 from dearfy.widgets.datepicker import DatePicker
 from dearfy.widgets.group import Group
@@ -19,6 +20,7 @@ from dearfy.widgets.window import Window
 __all__ = [
     'Button',
     'Checkbox',
+    'ChildWindow',
     'Combo',
     'DatePicker',
     'Group',
