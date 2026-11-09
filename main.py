@@ -1,4 +1,4 @@
-# import datetime
+import datetime
 import os
 
 os.environ['LOGURU_AUTOINIT'] = 'False'
@@ -29,7 +29,7 @@ class MyApp(App):
                 yield Text("It's okay?")
             yield DatePicker(
                 callback=lambda sender, app_data: logger.trace('{0}', str(app_data)),
-                # default_value=datetime.datetime.now()
+                default_value=datetime.datetime.now()
             )
 
     @action('SetPrimaryWindow', callmode='one')

@@ -16,6 +16,7 @@ from dearfy.widgets.text import Text
 from dearfy.widgets.tooltip import Tooltip
 from dearfy.widgets.tree_node import TreeNode, TreeNodeLines
 from dearfy.widgets.window import Window
+from dearfy.widgets.image import Image
 
 __all__ = [
     'AutoTable',
@@ -49,4 +50,5 @@ __all__ = [
     'TreeNode',
     'TreeNodeLines',
     'Window',
+    'Image',
 ]

@@ -1,3 +1,8 @@
+import array
+try:
+    import numpy as np
+except:
+    np = None
 from datetime import date, datetime
 from os import PathLike
 from pathlib import Path, PosixPath, PurePath, PurePosixPath, PureWindowsPath, WindowsPath
@@ -49,19 +54,24 @@ FONT_RANGE_HINT: dict[str, int] = {
 
 # ! Typing
 
-FilePath: TypeAlias         = str | PathLike[str] | Path | PosixPath | WindowsPath | PurePath | PurePosixPath | PureWindowsPath
+FilePath: TypeAlias             = str | PathLike[str] | Path | PosixPath | WindowsPath | PurePath | PurePosixPath | PureWindowsPath
 
 # ! DearPyGUI Typing
 
-Tag: TypeAlias              = str | int
-Position: TypeAlias         = tuple[int, int] | Iterable[int]
-Size: TypeAlias             = tuple[int, int] | Iterable[int]
-Color: TypeAlias            = tuple[int, int, int, int] | Iterable[int]
-ImageData: TypeAlias        = tuple[float, ...] | Iterable[float]
+Tag: TypeAlias                  = str | int
+Position: TypeAlias             = tuple[int, int] | Iterable[int]
+Size: TypeAlias                 = tuple[int, int] | Iterable[int]
+Color: TypeAlias                = tuple[int, int, int, int] | Iterable[int]
+FloatColor: TypeAlias           = tuple[float, float, float, float] | Iterable[float]
+if np is not None:
+    ImageFloatData: TypeAlias   = tuple[float, ...] | Iterable[float] | array.array[float] | np.ndarray # type: ignore
+else:
+    ImageFloatData: TypeAlias   = tuple[float, ...] | Iterable[float] | array.array[float]
+FloatSize: TypeAlias            = tuple[float, float] | Iterable[float]
 
-FontChar: TypeAlias         = int
-FontRange: TypeAlias        = tuple[FontChar, FontChar]
-FontRangeHint: TypeAlias    = Literal[
+FontChar: TypeAlias             = int
+FontRange: TypeAlias            = tuple[FontChar, FontChar]
+FontRangeHint: TypeAlias        = Literal[
     'default',
     'japanese',
     'chinese-full', 'chinese-simple', 'chinese-simplified-common',
