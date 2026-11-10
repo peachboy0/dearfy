@@ -52,9 +52,10 @@ class StaticTexture(Item):
 
     def __dearfy_init__(self) -> None:
         kwargs = get_method_needed(dpg.add_static_texture, **self._config)
+        width, height = kwargs.pop('width'), kwargs.pop('height')
+        default_value = kwargs.pop('default_value', self._config.get('default_value'))
         with dpg.texture_registry():
-            self._config['tag'] = dpg.add_static_texture(**kwargs)
-        self._config.pop('default_value')
+            self._config['tag'] = dpg.add_static_texture(width, height, default_value, **kwargs)
         super().__dearfy_init__()
 
     @classmethod
