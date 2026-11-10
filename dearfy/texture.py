@@ -1,5 +1,6 @@
-from pathlib import Path
 from array import array
+from pathlib import Path
+
 try:
     import numpy as np
 except ImportError:
@@ -10,8 +11,8 @@ from PIL import Image
 from typing_extensions import Self, Unpack  # noqa: UP035
 
 from dearfy.base import Item, ItemKwargs
-from dearfy.functions import get_method_needed
 from dearfy.field import field
+from dearfy.functions import get_method_needed
 from dearfy.typing import FilePath, ImageFloatData, Tag
 
 # ! Static Texture Item Class
@@ -21,12 +22,10 @@ class StaticTexture(Item):
     REFERENCE_METHOD = dpg.add_static_texture
     VALIDATORS_KWARGS = ()
 
-    __slots__ = ('_filepath')
-
     def __init__(self,
         width: int,
         height: int,
-        data: ImageFloatData,
+        default_value: ImageFloatData,
         *,
         parent: Tag | None = None,
         **kwargs: Unpack[ItemKwargs],
@@ -36,7 +35,7 @@ class StaticTexture(Item):
         Args:
             width (int): Image width.
             height (int): Image height.
-            data (ImageFloatData): An array of floating point values.
+            default_value (ImageFloatData): An array of floating point values.
             parent (Tag | None, optional): Parent to add this item to (runtime adding). Defaults to None.
             label (str, optional): Overrides 'name' as label. Defaults to ''.
             user_data (Any | None, optional): User data for callbacks. Defaults to None.
@@ -46,7 +45,7 @@ class StaticTexture(Item):
         super().__init__(
             width=width,
             height=height,
-            default_value=data,
+            default_value=default_value,
             parent=field(parent, default=dpg.mvReservedUUID_2, nullable=False),
             **kwargs
         )

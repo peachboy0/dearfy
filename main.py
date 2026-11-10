@@ -1,6 +1,8 @@
 import datetime
 import os
 
+from PIL import Image as Img
+
 os.environ['LOGURU_AUTOINIT'] = 'False'
 os.environ['LOGURU_LEVEL'] = 'TRACE'
 
@@ -18,7 +20,7 @@ class MyApp(App):
     primary_window_tag: Tag | None = None
 
     def compose(self):
-        yield StaticTexture.from_file('icon.png', tag='dearfy.icon')
+        yield StaticTexture.from_image(Img.open('icon.png'), tag='dearfy.icon')
         with Window(tag="FirstWindow"):
             yield Button(label="[P]", callback='SetPrimaryWindow')
             with Group(horizontal=True):
