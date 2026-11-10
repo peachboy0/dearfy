@@ -8,6 +8,7 @@ from loguru import logger
 from typing_extensions import Any  # noqa: UP035
 
 from dearfy.app import App, action
+from dearfy.texture import StaticTexture
 from dearfy.typing import Tag
 from dearfy.widgets import *
 
@@ -17,11 +18,13 @@ class MyApp(App):
     primary_window_tag: Tag | None = None
 
     def compose(self):
+        yield StaticTexture.from_file('icon.png', tag='dearfy.icon')
         with Window(tag="FirstWindow"):
             yield Button(label="[P]", callback='SetPrimaryWindow')
             with Group(horizontal=True):
                 yield InputText(width=-100)
                 yield Button(label="OK", width=50)
+            yield Image('dearfy.icon')
         with Window(tag="SecondWindow"):
             yield Button(label="[P]", callback='SetPrimaryWindow')
             with Group(horizontal=True):

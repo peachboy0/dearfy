@@ -4,7 +4,7 @@ from typing_extensions import Unpack
 from dearfy.base import Item, ItemKwargs, Showable
 from dearfy.field import field
 from dearfy.functions import get_method_needed
-from dearfy.typing import Callback, Position, Tag, FloatColor, FloatSize
+from dearfy.typing import Callback, FloatColor, FloatSize, Position, Tag
 from dearfy.validator import ValidateKwargsAction
 
 # ! Image Class

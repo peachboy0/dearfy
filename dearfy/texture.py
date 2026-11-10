@@ -53,22 +53,34 @@ class StaticTexture(Item):
 
     def __dearfy_init__(self) -> None:
         kwargs = get_method_needed(dpg.add_static_texture, **self._config)
-        with dpg.texture_registry(show=True):
+        with dpg.texture_registry():
             self._config['tag'] = dpg.add_static_texture(**kwargs)
         self._config.pop('default_value')
         super().__dearfy_init__()
 
     @classmethod
-    def from_file(cls, filepath: FilePath, *, gamma: float = 1.0, gamma_scale_factor: float = 1.0) -> Self:
-        width, height, channels, data = dpg.load_image(
+    def from_file(cls,
+        filepath: FilePath,
+        *,
+        gamma: float = 1.0,
+        gamma_scale_factor: float = 1.0,
+        parent: Tag | None = None,
+        **kwargs: Unpack[ItemKwargs]
+    ) -> Self:
+        width, height, channels, data = dpg.load_image(  # noqa: RUF059
             str(Path(filepath).resolve()),
             gamma=gamma,
             gamma_scale_factor=gamma_scale_factor
         )
-        return cls(width, height, data)
+        return cls(width, height, data, parent=parent, **kwargs)
 
     @classmethod
-    def from_image(cls, img: Image.Image) -> Self:
+    def from_image(cls,
+        img: Image.Image,
+        *,
+        parent: Tag | None = None,
+        **kwargs: Unpack[ItemKwargs]
+    ) -> Self:
         if img.mode != 'RGBA':
             img = img.convert(mode='RGBA')
         width, height = img.size
@@ -76,4 +88,4 @@ class StaticTexture(Item):
             data = (np.asarray(img, dtype=np.float32) / 255.0).ravel()
         else:
             data = array('f', (b / 255.0 for b in img.tobytes()))
-        return cls(width, height, data)
+        return cls(width, height, data, parent=parent, **kwargs)

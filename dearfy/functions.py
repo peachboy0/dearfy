@@ -36,8 +36,16 @@ def get_method_needed(method: Callable[..., Any], **kwargs: T) -> dict[str, T]:
         params[name] = param.default if (param.default is not param.empty) else NotImplemented
     new_kwargs, needed = {}, func.__code__.co_varnames
     for key, value in kwargs.items():
-        if (key in needed) and (params.get(key, NotImplemented) != value):
-            new_kwargs[key] = value
+        param_value = params.get(key, NotImplemented)
+        try:
+            not_equal = param_value != value
+        except ValueError:
+            not_equal = hash(param_value) != hash(value)
+        try:
+            if (key in needed) and not_equal:
+                new_kwargs[key] = value
+        except ValueError:
+            pass
     return new_kwargs
 
 def validate_enum(enum_type: type[T], value: T | str | int) -> T:
