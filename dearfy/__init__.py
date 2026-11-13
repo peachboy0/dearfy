@@ -1,3 +1,10 @@
+import os
+
+# ! Env Settings
+
+os.environ['LOGURU_AUTOINIT'] = '0'
+os.environ['DEARFY_EXPERIMENTAL'] = '0'
+
 import loguru
 
 from dearfy.logging import LoguruRichHandler, spetific_format_log
@@ -5,7 +12,7 @@ from dearfy.logging import LoguruRichHandler, spetific_format_log
 # ! Metadata
 
 __name__ = 'dearfy'
-__version__ = '0.1.17a1.post1'
+__version__ = '0.18.0'
 __author__ = 'peachboy0'
 
 # ! Logging

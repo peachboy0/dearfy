@@ -1,7 +1,7 @@
 import array
 
 try:
-    import numpy as np
+    import numpy as np # pyright: ignore[reportMissingImports]  # noqa: I001
 except ImportError:
     np = None
 
@@ -67,7 +67,7 @@ Size: TypeAlias                 = tuple[int, int] | Iterable[int]
 Color: TypeAlias                = tuple[int, int, int, int] | Iterable[int]
 FloatColor: TypeAlias           = tuple[float, float, float, float] | Iterable[float]
 if np is not None:
-    ImageFloatData: TypeAlias   = tuple[float, ...] | Iterable[float] | array.array[float] | np.ndarray # type: ignore
+    ImageFloatData: TypeAlias   = tuple[float, ...] | Iterable[float] | array.array[float] | np.ndarray # pyright: ignore[reportInvalidTypeForm]
 else:
     ImageFloatData: TypeAlias   = tuple[float, ...] | Iterable[float] | array.array[float]
 FloatSize: TypeAlias            = tuple[float, float] | Iterable[float]

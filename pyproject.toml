@@ -1,6 +1,6 @@
 [project]
 name = "dearfy"
-version = "0.1.17a1.post1"
+version = "0.17.2"
 description = "A library for simplifying the creation of complex GUIs using DearPyGUI."
 readme = "README.md"
 requires-python = ">=3.11,<3.15"
@@ -18,6 +18,7 @@ email = "semina054@gmail.com"
 
 [dependency-groups]
 dev = [
+ "ipykernel>=7.4.0",
  "toml>=0.10.2",
  "uv>=0.12.3",
 ]

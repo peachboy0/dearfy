@@ -183,14 +183,14 @@ class App(DOMNode):
         parent_item: Item | App = self.get_item(parent) if parent is not None else self
         loguru.logger.trace(f"{self!r}.push_item_to(...).{parent_item=!r}")
         if isinstance(obj, Item):
-            loguru.logger.trace(f"{self!r}.push_item_to(...).obj is [green]Item[/green]")
+            loguru.logger.trace("{0}.push_item_to(...).obj is [green]Item[/green]", self)
             if parent is not None:
                 obj._config['parent'] = parent
             parent_item._add_child(obj)
             self._dearfy_obejct_init(self, obj)
             return
         elif isinstance(obj, (Iterator, Iterable, Generator)):
-            loguru.logger.trace(f"{self!r}.push_item_to(...).obj is [green]Iterator[/green] | [green]Iterable[/green] | [green]Generator[/green]")
+            loguru.logger.trace("{0}.push_item_to(...).obj is [green]Iterator[/green] | [green]Iterable[/green] | [green]Generator[/green]", self)
             for item in obj:
                 if parent is not None:
                     item._config['parent'] = parent
@@ -198,7 +198,7 @@ class App(DOMNode):
                 self._dearfy_obejct_init(self, item)
             return
         elif inspect.isgeneratorfunction(obj):
-            loguru.logger.trace(f"{self!r}.push_item_to(...).obj is [green]GeneratorFunction[/green]")
+            loguru.logger.trace("{0}.push_item_to(...).obj is [green]GeneratorFunction[/green]", self)
             for item in obj():
                 if parent is not None:
                     item._config['parent'] = parent
@@ -206,7 +206,7 @@ class App(DOMNode):
                 self._dearfy_obejct_init(self, item)
             return
         elif inspect.isgenerator(obj):
-            loguru.logger.trace(f"{self!r}.push_item_to(...).obj is [green]Generator[/green]")
+            loguru.logger.trace("{0}.push_item_to(...).obj is [green]Generator[/green]", self)
             for item in obj:
                 if parent is not None:
                     item._config['parent'] = parent
