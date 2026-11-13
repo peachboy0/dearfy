@@ -314,7 +314,7 @@ class TableCell(Item, Showable):
             super().__dearfy_init__()
         self._config['tag'] = tag
 
-# ! Auto Column Fill Table Item Class
+# ! Auto Fill Table Item Class
 
 class AutoTable(Table):
     def __init__(self,
@@ -333,6 +333,9 @@ class AutoTable(Table):
         columns_kwargs = field(valid_columns_kwargs, default_factory=dict, nullable=False)
         self._extra['columns'] = columns
         self._extra['columns_kwargs'] = columns_kwargs
+
+    #def __dearfy_init__(self) -> None:
+    #   
 
     # def __dearfy_init__(self) -> None:
     #     kwargs = get_method_needed(dpg.add_table, **self._config)

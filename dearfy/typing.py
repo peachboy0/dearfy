@@ -1,14 +1,16 @@
 import array
+
 try:
     import numpy as np
-except:
+except ImportError:
     np = None
+
 from datetime import date, datetime
 from os import PathLike
 from pathlib import Path, PosixPath, PurePath, PurePosixPath, PureWindowsPath, WindowsPath
 
 import dearpygui.dearpygui as dpg
-from typing_extensions import Any, Callable, Iterable, Literal, NotRequired, Protocol, TypeAlias, TypedDict  # noqa: UP035
+from typing_extensions import Any, Callable, Iterable, Iterator, Literal, NotRequired, Protocol, TypeAlias, TypedDict  # noqa: UP035
 
 # ! Warning Types
 
@@ -18,6 +20,7 @@ class ExperimentalWarning(Warning):
 # ! Protocols
 
 class DearfyObject(Protocol):
+    def __dearfy_compose__(self) -> Iterator['DearfyObject']: ...
     def __dearfy_preparing__(self, app: object) -> None: ...
     def __dearfy_preinit__(self) -> None: ...
     def __dearfy_init__(self) -> None: ...
