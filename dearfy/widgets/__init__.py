@@ -7,6 +7,7 @@ from dearfy.widgets.combo import Combo
 from dearfy.widgets.datepicker import DatePicker
 from dearfy.widgets.group import Group
 from dearfy.widgets.image import Image
+from dearfy.widgets.imagebutton import ImageButton
 from dearfy.widgets.inputs import *
 from dearfy.widgets.listbox import ListBox
 from dearfy.widgets.menu import Menu, MenuBar, MenuItem
@@ -31,6 +32,7 @@ __all__ = [
     'DatePicker',
     'Group',
     'Image',
+    'ImageButton',
     'InputDouble',
     'InputFloat',
     'InputInt',
