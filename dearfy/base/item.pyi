@@ -76,8 +76,6 @@ class Item(DOMNode):
             tag (Tag | None, optional): Unique id used to programmatically refer to the item. If label is unused this will be the label. Defaults to None.
         """
 
-    def __iter__(self) -> Iterator[Item | DOMNode]: ...
-
     @property
     def tag(self) -> Tag: ...
 

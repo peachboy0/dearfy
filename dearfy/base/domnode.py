@@ -25,10 +25,6 @@ class DOMNode:
     def __repr__(self) -> str:
         return self.__str__()
 
-    def __iter__(self) -> Iterator[DOMNode]:
-        yield from self._node_children
-        yield from itertools.chain(*[child.__iter__() for child in self._node_children])
-
     def __len__(self) -> int:
         quantity = len(self._node_children)
         for child in self._node_children:

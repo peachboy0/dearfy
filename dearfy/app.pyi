@@ -73,8 +73,6 @@ class App(DOMNode):
             minimized (bool, optional): Sets the state of the viewport to minimized. Defaults to False.
             maximized (bool, optional): Sets the state of the viewport to maximized. Defaults to False.
         """
-
-    def __iter__(self) -> Iterator[Item | DOMNode]: ...
     
     def compose(self) -> ComposeResult: ...
 
