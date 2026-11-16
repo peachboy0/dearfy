@@ -133,7 +133,7 @@ wheels = [
 
 [[package]]
 name = "dearfy"
-version = "0.18.1"
+version = "0.18.1.post2"
 source = { virtual = "." }
 dependencies = [
     { name = "dateparser" },

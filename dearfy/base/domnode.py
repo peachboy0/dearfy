@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import itertools
+# import itertools
 from collections import deque
 from types import TracebackType
 
@@ -24,12 +24,6 @@ class DOMNode:
     
     def __repr__(self) -> str:
         return self.__str__()
-
-    def __len__(self) -> int:
-        quantity = len(self._node_children)
-        for child in self._node_children:
-            quantity += child.__len__()
-        return quantity
     
     def __enter__(self) -> Self:
         if not self.NODE_CONTAINERABLE:
@@ -62,6 +56,13 @@ class DOMNode:
         while main_parent._node_parent is not None:
             main_parent = main_parent._node_parent
         return main_parent
+
+    @property
+    def _length_children(self) -> int:
+        length = len(self._node_children)
+        for child in self._node_children:
+            length += child._length_children
+        return length
 
     @property
     def containered(self) -> bool:
