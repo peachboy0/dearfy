@@ -62,5 +62,6 @@ class Image(Item, Showable):
 
     def __dearfy_init__(self) -> None:
         kwargs = get_method_needed(dpg.add_image, **self._config)
-        self._config['tag'] = dpg.add_image(**kwargs)
+        texture_tag = kwargs.pop('texture_tag')
+        self._config['tag'] = dpg.add_image(texture_tag, **kwargs)
         super().__dearfy_init__()
