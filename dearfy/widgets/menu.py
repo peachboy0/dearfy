@@ -1,7 +1,17 @@
 import dearpygui.dearpygui as dpg
 from typing_extensions import Unpack
 
-from dearfy.base import Enableable, Item, ItemKwargs, Showable
+from dearfy.base import (
+    Callbackable,
+    DropCallbackable,
+    Enableable,
+    FilterKeyable,
+    Indentable,
+    Item,
+    ItemKwargs,
+    Showable,
+    TrackOffsetable,
+)
 from dearfy.field import field
 from dearfy.functions import get_method_needed
 from dearfy.typing import Callback, Tag
@@ -39,7 +49,15 @@ class MenuBar(Item, Showable):
 
 # ! Menu Item Class
 
-class Menu(Item, Showable, Enableable):
+class Menu(
+    Item,
+    Showable,
+    Enableable,
+    Indentable,
+    DropCallbackable,
+    FilterKeyable,
+    TrackOffsetable,
+):
     REPR_HIDDEN_KWARGS = ('drop_callback', )
     REFERENCE_METHOD = dpg.add_menu
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
@@ -84,7 +102,17 @@ class Menu(Item, Showable, Enableable):
 
 # ! Menu Item Class
 
-class MenuItem(Item, Showable, Enableable):
+class MenuItem(
+    Item,
+    Showable,
+    Enableable,
+    Indentable,
+    Callbackable,
+    DropCallbackable,
+    FilterKeyable,
+    TrackOffsetable,
+    
+):
     REPR_HIDDEN_KWARGS = ('callback', 'drop_callback')
     REFERENCE_METHOD = dpg.add_menu_item
     VALIDATORS_KWARGS = (ValidateKwargsAction, )

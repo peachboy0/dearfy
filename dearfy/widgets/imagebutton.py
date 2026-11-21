@@ -1,7 +1,22 @@
 import dearpygui.dearpygui as dpg
 from typing_extensions import Unpack
 
-from dearfy.base import Enableable, Item, ItemKwargs, Showable
+from dearfy.base import (
+    Callbackable,
+    DragCallbackable,
+    DropCallbackable,
+    Enableable,
+    FilterKeyable,
+    Heightable,
+    Indentable,
+    Item,
+    ItemKwargs,
+    Positional,
+    Showable,
+    Sourceable,
+    TrackOffsetable,
+    Widthable,
+)
 from dearfy.field import field
 from dearfy.functions import get_method_needed
 from dearfy.typing import Callback, FloatColor, FloatSize, Position, Tag
@@ -9,7 +24,21 @@ from dearfy.validator import ValidateKwargsAction
 
 # ! Image Button Item Class
 
-class ImageButton(Item, Showable, Enableable):
+class ImageButton(
+    Item,
+    Showable,
+    Enableable,
+    Callbackable,
+    DragCallbackable,
+    DropCallbackable,
+    FilterKeyable,
+    Heightable,
+    Indentable,
+    Positional,
+    TrackOffsetable,
+    Widthable,
+    Sourceable,
+):
     REPR_HIDDEN_KWARGS = ('drag_callback', 'drop_callback', 'callback')
     REFERENCE_METHOD = dpg.add_image_button
     VALIDATORS_KWARGS = (ValidateKwargsAction, )

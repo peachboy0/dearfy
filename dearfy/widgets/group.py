@@ -1,7 +1,20 @@
 import dearpygui.dearpygui as dpg
 from typing_extensions import Unpack
 
-from dearfy.base import Enableable, Item, ItemKwargs, Showable
+from dearfy.base import (
+    DragCallbackable,
+    DropCallbackable,
+    Enableable,
+    FilterKeyable,
+    Heightable,
+    Indentable,
+    Item,
+    ItemKwargs,
+    Positional,
+    Showable,
+    TrackOffsetable,
+    Widthable,
+)
 from dearfy.field import field
 from dearfy.functions import get_method_needed
 from dearfy.typing import Callback, Position, Tag
@@ -9,7 +22,19 @@ from dearfy.validator import ValidateKwargsAction
 
 # ! Group Class
 
-class Group(Item, Enableable, Showable):
+class Group(
+    Item,
+    Enableable,
+    Showable,
+    DragCallbackable,
+    DropCallbackable,
+    FilterKeyable,
+    Heightable,
+    Indentable,
+    Positional,
+    TrackOffsetable,
+    Widthable,
+):
     REPR_HIDDEN_KWARGS = ('drag_callback', 'drop_callback')
     REFERENCE_METHOD = dpg.add_group
     VALIDATORS_KWARGS = (ValidateKwargsAction, )

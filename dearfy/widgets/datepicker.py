@@ -3,7 +3,18 @@ from datetime import datetime
 import dearpygui.dearpygui as dpg
 from typing_extensions import Unpack
 
-from dearfy.base import Enableable, Item, ItemKwargs, Showable, Variable
+from dearfy.base import (
+    Callbackable,
+    DragCallbackable,
+    DropCallbackable,
+    Enableable,
+    Indentable,
+    Item,
+    ItemKwargs,
+    Positional,
+    Showable,
+    Variable,
+)
 from dearfy.field import field
 from dearfy.functions import get_method_needed
 from dearfy.typing import Callback, DateLike, Position, Tag
@@ -11,7 +22,17 @@ from dearfy.validator import ValidateKwargsAction, ValidateKwargsDate
 
 # ! Date Picker Widget Class
 
-class DatePicker(Item, Showable, Enableable, Variable):
+class DatePicker(
+    Item,
+    Showable,
+    Enableable,
+    Variable,
+    Callbackable,
+    DragCallbackable,
+    DropCallbackable,
+    Positional,
+    Indentable,
+):
     REPR_HIDDEN_KWARGS = ('callback', 'drag_callback', 'drop_callback', 'default_value')
     REFERENCE_METHOD = dpg.add_date_picker
     VALIDATORS_KWARGS = (ValidateKwargsAction, ValidateKwargsDate)

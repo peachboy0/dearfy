@@ -1,7 +1,22 @@
 import dearpygui.dearpygui as dpg
 from typing_extensions import Iterable, Unpack  # noqa: UP035
 
-from dearfy.base import Enableable, Item, ItemKwargs, Showable, Variable
+from dearfy.base import (
+    Callbackable,
+    DragCallbackable,
+    DropCallbackable,
+    Enableable,
+    FilterKeyable,
+    Indentable,
+    Item,
+    ItemKwargs,
+    Positional,
+    Showable,
+    Sourceable,
+    TrackOffsetable,
+    Variable,
+    Widthable,
+)
 from dearfy.field import field
 from dearfy.functions import get_method_needed
 from dearfy.typing import Callback, Position, Tag
@@ -9,7 +24,21 @@ from dearfy.validator import ValidateKwargsAction
 
 # ! List Box Item Class
 
-class ListBox(Item, Showable, Enableable, Variable[str]):
+class ListBox(
+    Item,
+    Showable,
+    Enableable,
+    Variable[str],
+    Callbackable,
+    DragCallbackable,
+    DropCallbackable,
+    FilterKeyable,
+    Indentable,
+    Positional,
+    TrackOffsetable,
+    Widthable,
+    Sourceable,
+):
     REPR_HIDDEN_KWARGS = ('value', 'default_value', 'callback', 'drag_callback', 'drop_callback')
     REFERENCE_METHOD = dpg.add_listbox
     VALIDATORS_KWARGS = (ValidateKwargsAction, )

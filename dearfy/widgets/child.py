@@ -1,7 +1,18 @@
 import dearpygui.dearpygui as dpg
 from typing_extensions import Unpack
 
-from dearfy.base import Item, ItemKwargs, Showable
+from dearfy.base import (
+    DragCallbackable,
+    FilterKeyable,
+    Heightable,
+    Indentable,
+    Item,
+    ItemKwargs,
+    Positional,
+    Showable,
+    TrackOffsetable,
+    Widthable,
+)
 from dearfy.field import field
 from dearfy.functions import get_method_needed
 from dearfy.typing import Callback, Position, Tag
@@ -9,7 +20,17 @@ from dearfy.validator import ValidateKwargsAction
 
 # ! Child Window (Scrollable Container) Item Class
 
-class ChildWindow(Item, Showable):
+class ChildWindow(
+    Item,
+    Showable,
+    Widthable,
+    Heightable,
+    DragCallbackable,
+    Positional,
+    FilterKeyable,
+    TrackOffsetable,
+    Indentable,
+):
     REPR_HIDDEN_KWARGS = ('drag_callback', )
     REFERENCE_METHOD = dpg.add_child_window
     VALIDATORS_KWARGS = (ValidateKwargsAction, )

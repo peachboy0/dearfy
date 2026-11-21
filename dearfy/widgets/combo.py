@@ -1,7 +1,19 @@
 import dearpygui.dearpygui as dpg
 from typing_extensions import Iterable, Unpack  # noqa: UP035
 
-from dearfy.base import Enableable, Item, ItemKwargs, Showable, Variable
+from dearfy.base import (
+    DragCallbackable,
+    DropCallbackable,
+    Enableable,
+    Indentable,
+    Item,
+    ItemKwargs,
+    Positional,
+    Showable,
+    Sourceable,
+    Variable,
+    Widthable,
+)
 from dearfy.field import field
 from dearfy.functions import get_method_needed
 from dearfy.typing import Callback, Position, Tag
@@ -9,7 +21,18 @@ from dearfy.validator import ValidateKwargsAction
 
 # ! Combo Item Class
 
-class Combo(Item, Showable, Enableable, Variable[str]):
+class Combo(
+    Item,
+    Showable,
+    Enableable,
+    Variable[str],
+    Widthable,
+    DragCallbackable,
+    DropCallbackable,
+    Positional,
+    Indentable,
+    Sourceable,
+):
     REPR_HIDDEN_KWARGS = ('callback', 'drag_callback', 'drop_callback', 'items', 'default_value')
     REFERENCE_METHOD = dpg.add_combo
     VALIDATORS_KWARGS = (ValidateKwargsAction, )

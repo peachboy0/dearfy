@@ -10,7 +10,10 @@ from dearfy.validator import ValidateKwargsAction
 
 # ! Popup Item Class
 
-class Popup(Item):
+class Popup(
+    Item,
+    
+):
     REFERENCE_METHOD = dpg.popup
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
 
