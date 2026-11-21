@@ -1,7 +1,7 @@
 import dearpygui.dearpygui as dpg
 from typing_extensions import Unpack
 
-from dearfy.base import Item, ItemKwargs, Showable
+from dearfy.base import Heightable, Indentable, Item, ItemKwargs, Positional, Showable, Widthable
 from dearfy.field import field
 from dearfy.functions import get_method_needed
 from dearfy.typing import Callback, Position, Size
@@ -9,14 +9,19 @@ from dearfy.validator import ValidateKwargsAction
 
 # ! Window Class
 
-class Window(Item, Showable):
+class Window(
+    Item, 
+    Showable,
+    Widthable,
+    Heightable,
+    Indentable,
+    Positional,
+):
     REPR_HIDDEN_KWARGS = ('on_close', )
     REFERENCE_METHOD = dpg.add_window
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
     
-    def __init__(
-        self,
-        *,
+    def __init__(self,
         width: int = 0,
         height: int = 0,
         indent: int = -1,

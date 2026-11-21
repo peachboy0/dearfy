@@ -12,7 +12,7 @@ from dearfy.logging import LoguruRichHandler, spetific_format_log
 # ! Metadata
 
 __name__ = 'dearfy'
-__version__ = '0.19.0.dev1'
+__version__ = '0.19.0'
 __author__ = 'peachboy0'
 
 # ! Logging

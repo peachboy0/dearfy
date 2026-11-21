@@ -111,7 +111,6 @@ class MenuItem(
     DropCallbackable,
     FilterKeyable,
     TrackOffsetable,
-    
 ):
     REPR_HIDDEN_KWARGS = ('callback', 'drop_callback')
     REFERENCE_METHOD = dpg.add_menu_item

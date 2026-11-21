@@ -1,7 +1,7 @@
 import dearpygui.dearpygui as dpg
 from typing_extensions import Unpack
 
-from dearfy.base import Item, ItemKwargs, Showable
+from dearfy.base import Indentable, Item, ItemKwargs, Positional, Showable
 from dearfy.field import field
 from dearfy.functions import get_method_needed
 from dearfy.typing import Position, Tag
@@ -9,7 +9,7 @@ from dearfy.validator import ValidateKwargsAction
 
 # ! Separator Item Class
 
-class Separator(Item, Showable):
+class Separator(Item, Showable, Indentable, Positional):
     REFERENCE_METHOD = dpg.add_separator
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
 

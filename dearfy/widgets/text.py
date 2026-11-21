@@ -1,7 +1,19 @@
 import dearpygui.dearpygui as dpg
 from typing_extensions import Unpack
 
-from dearfy.base import Item, ItemKwargs, Showable, Variable
+from dearfy.base import (
+    DragCallbackable,
+    DropCallbackable,
+    FilterKeyable,
+    Indentable,
+    Item,
+    ItemKwargs,
+    Positional,
+    Showable,
+    Sourceable,
+    TrackOffsetable,
+    Variable,
+)
 from dearfy.field import field
 from dearfy.functions import get_method_needed
 from dearfy.typing import Callback, Color, Position, Tag
@@ -9,7 +21,18 @@ from dearfy.validator import ValidateKwargsAction
 
 # ! Text Class
 
-class Text(Item, Showable, Variable[str]):
+class Text(
+    Item,
+    Showable,
+    Variable[str],
+    Indentable,
+    Sourceable,
+    DragCallbackable,
+    DropCallbackable,
+    Positional,
+    FilterKeyable,
+    TrackOffsetable,
+):
     REPR_HIDDEN_KWARGS = ('value', 'default_value', 'drag_callback', 'drop_callback')
     REFERENCE_METHOD = dpg.add_text
     VALIDATORS_KWARGS = (ValidateKwargsAction, )

@@ -3,7 +3,19 @@ import os
 import dearpygui.dearpygui as dpg
 from typing_extensions import Iterable, Mapping, Unpack  # noqa: UP035
 
-from dearfy.base import Enableable, Item, ItemKwargs, Showable
+from dearfy.base import (
+    Callbackable,
+    Enableable,
+    FilterKeyable,
+    Heightable,
+    Indentable,
+    Item,
+    ItemKwargs,
+    Positional,
+    Showable,
+    Sourceable,
+    Widthable,
+)
 from dearfy.field import field
 from dearfy.functions import get_method_needed
 from dearfy.typing import Callback, Position, Tag
@@ -54,7 +66,17 @@ class TableKwargs(ItemKwargs):
 
 # ! Table Item Class
 
-class Table(Item, Showable):
+class Table(
+    Item,
+    Showable,
+    Widthable,
+    Heightable,
+    Sourceable,
+    Callbackable,
+    Indentable,
+    Positional,
+    FilterKeyable,
+):
     REFERENCE_METHOD = dpg.add_table
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
 
@@ -183,7 +205,7 @@ class TableColumnKwargs(TableKwargs):
 
 # ! Table Column Item Class
 
-class TableColumn(Item, Showable, Enableable):
+class TableColumn(Item, Showable, Enableable, Widthable):
     REFERENCE_METHOD = dpg.add_table_column
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
 
@@ -250,7 +272,7 @@ class TableColumn(Item, Showable, Enableable):
 
 # ! Table Row Item Class
 
-class TableRow(Item, Showable):
+class TableRow(Item, Showable, FilterKeyable, Heightable):
     REFERENCE_METHOD = dpg.add_table_row
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
 
@@ -283,7 +305,7 @@ class TableRow(Item, Showable):
 
 # ! Table Cell
 
-class TableCell(Item, Showable):
+class TableCell(Item, Showable, Heightable, FilterKeyable):
     REFERENCE_METHOD = dpg.add_table_cell
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
 

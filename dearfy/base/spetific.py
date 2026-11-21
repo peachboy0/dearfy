@@ -159,7 +159,7 @@ class Indentable(metaclass=RequireBasesMeta):
 
 # ! Source Spetific Class
 
-@require_bases
+@require_bases(Item)
 class Sourceable(metaclass=RequireBasesMeta):
     @property
     def source(self) -> Tag | None:

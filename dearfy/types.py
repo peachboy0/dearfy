@@ -11,3 +11,10 @@ class MouseButton(IntEnum):
     RIGHT       = dpg.mvMouseButton_Right
     X1          = dpg.mvMouseButton_X1
     X2          = dpg.mvMouseButton_X2
+
+# ! Tree Node Type
+
+class TreeNodeLines(IntEnum):
+    NONE = dpg.mvTreeLines_None
+    FULL = dpg.mvTreeLines_Full
+    TO_NODES = dpg.mvTreeLines_ToNodes

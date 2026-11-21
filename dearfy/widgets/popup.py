@@ -12,7 +12,6 @@ from dearfy.validator import ValidateKwargsAction
 
 class Popup(
     Item,
-    
 ):
     REFERENCE_METHOD = dpg.popup
     VALIDATORS_KWARGS = (ValidateKwargsAction, )

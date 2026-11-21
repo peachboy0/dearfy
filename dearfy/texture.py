@@ -10,14 +10,14 @@ import dearpygui.dearpygui as dpg
 from PIL import Image
 from typing_extensions import Self, Unpack  # noqa: UP035
 
-from dearfy.base import Item, ItemKwargs
+from dearfy.base import Heightable, Item, ItemKwargs, Widthable
 from dearfy.field import field
 from dearfy.functions import get_method_needed
 from dearfy.typing import FilePath, ImageFloatData, Tag
 
 # ! Static Texture Item Class
 
-class StaticTexture(Item):
+class StaticTexture(Item, Widthable, Heightable):
     REPR_HIDDEN_KWARGS = ('default_value', )
     REFERENCE_METHOD = dpg.add_static_texture
     VALIDATORS_KWARGS = ()

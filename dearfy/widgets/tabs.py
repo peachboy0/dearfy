@@ -1,7 +1,16 @@
 import dearpygui.dearpygui as dpg
 from typing_extensions import Unpack
 
-from dearfy.base import Item, ItemKwargs, Showable
+from dearfy.base import (
+    Callbackable,
+    DropCallbackable,
+    FilterKeyable,
+    Indentable,
+    Item,
+    ItemKwargs,
+    Showable,
+    TrackOffsetable,
+)
 from dearfy.field import field
 from dearfy.functions import get_method_needed
 from dearfy.typing import Callback, Position, Tag
@@ -9,7 +18,7 @@ from dearfy.validator import ValidateKwargsAction
 
 # ! Tab Bar Item Class
 
-class TabBar(Item, Showable):
+class TabBar(Item, Showable, Indentable, Callbackable, FilterKeyable, TrackOffsetable):
     REFERENCE_METHOD = dpg.add_tab_bar
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
 
@@ -62,7 +71,14 @@ class TabBar(Item, Showable):
 
 # ! Tab Item Class
 
-class Tab(Item, Showable):
+class Tab(
+    Item,
+    Showable,
+    Indentable,
+    DropCallbackable,
+    FilterKeyable,
+    TrackOffsetable,
+):
     REPR_HIDDEN_KWARGS = ('drop_callback', )
     REFERENCE_METHOD = dpg.add_tab
     VALIDATORS_KWARGS = (ValidateKwargsAction, )

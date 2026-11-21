@@ -1,24 +1,37 @@
-from enum import Enum
-
 import dearpygui.dearpygui as dpg
 from typing_extensions import Unpack
 
-from dearfy.base import Item, ItemKwargs, Showable
+from dearfy.base import (
+    DragCallbackable,
+    DropCallbackable,
+    FilterKeyable,
+    Indentable,
+    Item,
+    ItemKwargs,
+    Showable,
+    TrackOffsetable,
+)
 from dearfy.field import field
 from dearfy.functions import get_method_needed
+from dearfy.types import TreeNodeLines
 from dearfy.typing import Callback, Position, Tag
 from dearfy.validator import ValidateKwargsAction
 
 # ! Types
 
-class TreeNodeLines(Enum):
-    NONE = dpg.internal_dpg.mvTreeLines_None
-    FULL = dpg.internal_dpg.mvTreeLines_Full
-    TO_NODES = dpg.internal_dpg.mvTreeLines_ToNodes
+
 
 # ! Tree Node Item Class
 
-class TreeNode(Item, Showable):
+class TreeNode(
+    Item,
+    Showable,
+    Indentable,
+    DragCallbackable,
+    DropCallbackable,
+    FilterKeyable,
+    TrackOffsetable,
+):
     REPR_HIDDEN_KWARGS = ('drag_callback', 'drop_callback')
     REFERENCE_METHOD = dpg.add_tree_node
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
@@ -68,7 +81,7 @@ class TreeNode(Item, Showable):
             span_text_width=span_text_width,
             span_full_width=span_full_width,
             catch_nav_left=catch_nav_left,
-            lines=lines,
+            lines=int(lines),
             **kwargs
         )
 
