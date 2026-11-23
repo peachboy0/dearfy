@@ -1,7 +1,23 @@
 import dearpygui.dearpygui as dpg
 from typing_extensions import Unpack
 
-from dearfy.base import Enableable, Item, ItemKwargs, Showable, Variable
+from dearfy.base import (
+    Callbackable,
+    DragCallbackable,
+    DropCallbackable,
+    Enableable,
+    FilterKeyable,
+    Heightable,
+    Indentable,
+    Item,
+    ItemKwargs,
+    Positional,
+    Showable,
+    Sourceable,
+    TrackOffsetable,
+    Variable,
+    Widthable,
+)
 from dearfy.field import field
 from dearfy.functions import get_method_needed
 from dearfy.typing import Callback, Position, Tag
@@ -9,7 +25,22 @@ from dearfy.validator import ValidateKwargsAction
 
 # ! Input Slider INT Item Class
 
-class SliderInt(Item, Enableable, Showable, Variable[int]):
+class SliderInt(
+    Item,
+    Enableable,
+    Showable,
+    Variable[int],
+    Callbackable,
+    DragCallbackable,
+    DropCallbackable,
+    FilterKeyable,
+    Heightable,
+    Indentable,
+    Positional,
+    Sourceable,
+    TrackOffsetable,
+    Widthable,
+):
     REPR_HIDDEN_KWARGS = ('value', 'default_value', 'callback', 'drag_callback', 'drop_callback')
     REFERENCE_METHOD = dpg.add_slider_int
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
@@ -74,7 +105,22 @@ class SliderInt(Item, Enableable, Showable, Variable[int]):
 
 # ! Input Slider FLOAT Item Class
 
-class SliderFloat(Item, Enableable, Showable, Variable[float]):
+class SliderFloat(
+    Item,
+    Enableable,
+    Showable,
+    Variable[float],
+    Callbackable,
+    DragCallbackable,
+    DropCallbackable,
+    FilterKeyable,
+    Heightable,
+    Indentable,
+    Positional,
+    Sourceable,
+    TrackOffsetable,
+    Widthable,
+):
     REPR_HIDDEN_KWARGS = ('value', 'default_value', 'callback', 'drag_callback', 'drop_callback')
     REFERENCE_METHOD = dpg.add_slider_float
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
@@ -139,7 +185,22 @@ class SliderFloat(Item, Enableable, Showable, Variable[float]):
 
 # ! Input Slider DOUBLE Item Class
 
-class SliderDouble(Item, Enableable, Showable, Variable[float]):
+class SliderDouble(
+    Item,
+    Enableable,
+    Showable,
+    Variable[float],
+    Callbackable,
+    DragCallbackable,
+    DropCallbackable,
+    FilterKeyable,
+    Heightable,
+    Indentable,
+    Positional,
+    Sourceable,
+    TrackOffsetable,
+    Widthable,
+):
     REPR_HIDDEN_KWARGS = ('value', 'default_value', 'callback', 'drag_callback', 'drop_callback')
     REFERENCE_METHOD = dpg.add_slider_double
     VALIDATORS_KWARGS = (ValidateKwargsAction, )

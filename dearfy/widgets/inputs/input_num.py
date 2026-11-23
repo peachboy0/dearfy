@@ -1,7 +1,23 @@
 import dearpygui.dearpygui as dpg
 from typing_extensions import Unpack
 
-from dearfy.base import Enableable, Item, ItemKwargs, Showable, Variable
+from dearfy.base import (
+    Callbackable,
+    DragCallbackable,
+    DropCallbackable,
+    Enableable,
+    FilterKeyable,
+    Heightable,
+    Indentable,
+    Item,
+    ItemKwargs,
+    Positional,
+    Showable,
+    Sourceable,
+    TrackOffsetable,
+    Variable,
+    Widthable,
+)
 from dearfy.field import field
 from dearfy.functions import get_method_needed
 from dearfy.typing import Callback, Position, Tag
@@ -9,7 +25,22 @@ from dearfy.validator import ValidateKwargsAction
 
 # ! Input Integer Class
 
-class InputInt(Item, Enableable, Showable, Variable[int]):
+class InputInt(
+    Item,
+    Enableable,
+    Showable,
+    Variable[int],
+    Callbackable,
+    DragCallbackable,
+    DropCallbackable,
+    FilterKeyable,
+    Heightable,
+    Indentable,
+    Positional,
+    Sourceable,
+    TrackOffsetable,
+    Widthable,
+):
     REPR_HIDDEN_KWARGS = ('value', 'default_value', 'callback', 'drag_callback', 'drop_callback')
     REFERENCE_METHOD = dpg.add_input_int
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
@@ -83,7 +114,22 @@ class InputInt(Item, Enableable, Showable, Variable[int]):
 
 # ! Input Float Class
 
-class InputFloat(Item, Enableable, Showable, Variable[float]):
+class InputFloat(
+    Item,
+    Enableable,
+    Showable,
+    Variable[float],
+    Callbackable,
+    DragCallbackable,
+    DropCallbackable,
+    FilterKeyable,
+    Heightable,
+    Indentable,
+    Positional,
+    Sourceable,
+    TrackOffsetable,
+    Widthable,
+):
     REPR_HIDDEN_KWARGS = ('value', 'default_value', 'callback', 'drag_callback', 'drop_callback')
     REFERENCE_METHOD = dpg.add_input_float
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
@@ -159,7 +205,22 @@ class InputFloat(Item, Enableable, Showable, Variable[float]):
 
 # ! Input Float Class
 
-class InputDouble(Item, Enableable, Showable, Variable[float]):
+class InputDouble(
+    Item,
+    Enableable,
+    Showable,
+    Variable[float],
+    Callbackable,
+    DragCallbackable,
+    DropCallbackable,
+    FilterKeyable,
+    Heightable,
+    Indentable,
+    Positional,
+    Sourceable,
+    TrackOffsetable,
+    Widthable,
+):
     REPR_HIDDEN_KWARGS = ('value', 'default_value', 'callback', 'drag_callback', 'drop_callback')
     REFERENCE_METHOD = dpg.add_input_double
     VALIDATORS_KWARGS = (ValidateKwargsAction, )
