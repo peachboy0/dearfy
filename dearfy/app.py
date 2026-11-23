@@ -1,5 +1,6 @@
 import inspect
 from enum import Enum
+from pathlib import Path
 
 import dearpygui.dearpygui as dpg
 import loguru
@@ -11,6 +12,7 @@ from dearfy.base import DOMNode, Item
 from dearfy.field import field
 from dearfy.functions import formatting_kwargs, generator_safe, get_method_needed
 from dearfy.typing import Color, DearfyObject, FilePath, Tag
+from dearfy.widgets import *
 
 # ! Types
 
@@ -89,6 +91,102 @@ class App(DOMNode):
         self.__dearfy_init_action_attributes__()
         self._actioner._app = self
         self._nodes.clear()
+
+    @property
+    def title(self) -> str:
+        return dpg.get_viewport_title()
+
+    @title.setter
+    def title(self, value: str) -> None:
+        return dpg.set_viewport_title(value)
+
+    @property
+    def width(self) -> int:
+        return dpg.get_viewport_width()
+
+    @width.setter
+    def width(self, value: int) -> None:
+        dpg.set_viewport_width(value)
+
+    @property
+    def height(self) -> int:
+        return dpg.get_viewport_height()
+
+    @height.setter
+    def height(self, value: int) -> None:
+        dpg.set_viewport_height(value)
+
+    @property
+    def max_width(self) -> int:
+        return dpg.get_viewport_max_width()
+
+    @max_width.setter
+    def max_width(self, value: int) -> None:
+        dpg.set_viewport_max_width(value)
+
+    @property
+    def max_height(self) -> int:
+        return dpg.get_viewport_max_height()
+
+    @max_height.setter
+    def max_height(self, value: int) -> None:
+        dpg.set_viewport_max_height(value)
+
+    @property
+    def clear_color(self) -> Color:
+        return dpg.get_viewport_clear_color()
+
+    @clear_color.setter
+    def clear_color(self, value: Color) -> None:
+        dpg.set_viewport_clear_color(value)
+
+    @property
+    def client_width(self) -> int:
+        return dpg.get_viewport_client_width()
+
+    @property
+    def client_height(self) -> int:
+        return dpg.get_viewport_client_height()
+
+    @property
+    def pos(self) -> tuple[float, float]:
+        return tuple(dpg.get_viewport_pos())
+
+    @pos.setter
+    def pos(self, value: tuple[float, float]) -> None:
+        return dpg.set_viewport_pos(value)
+
+    @property
+    def vsync(self) -> bool:
+        return dpg.is_viewport_vsync_on()
+
+    @vsync.setter
+    def vsync(self, value: bool) -> None:
+        dpg.set_viewport_vsync(value)
+
+    @property
+    def resizable(self) -> bool:
+        return dpg.is_viewport_resizable()
+
+    @resizable.setter
+    def resizable(self, value: bool) -> None:
+        dpg.set_viewport_resizable(value)
+
+    @property
+    def always_top(self) -> bool:
+        return dpg.is_viewport_always_top()
+
+    @always_top.setter
+    def always_top(self, value: bool) -> None:
+        dpg.set_viewport_always_top(value)
+
+    @property
+    def decorated(self) -> bool:
+        return dpg.is_viewport_decorated()
+
+    @decorated.setter
+    def decorated(self, value: bool) -> None:
+        dpg.set_viewport_decorated(value)
     
     def __str__(self) -> str:
         kwargs = {}
@@ -226,6 +324,19 @@ class App(DOMNode):
 
     def bind_item_font(self, item: Tag, font: Tag) -> None:
         dpg.bind_item_font(item, font)
+
+    def get_active_window(self) -> Window:
+        return self.get_item(dpg.get_active_window())
+
+    def set_large_icon(self, src: FilePath) -> None:
+        src = str(Path(src).resolve())
+        dpg.set_viewport_large_icon(src)
+        self._config['large_icon'] = src
+
+    def set_small_icon(self, src: FilePath) -> None:
+        src = str(Path(src).resolve())
+        dpg.set_viewport_small_icon(src)
+        self._config['small_icon'] = src
 
     def show_font_manager(self) -> None:
         """Shows a debug tool for the font manager."""
