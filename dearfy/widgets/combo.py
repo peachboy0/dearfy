@@ -2,15 +2,18 @@ import dearpygui.dearpygui as dpg
 from typing_extensions import Iterable, Unpack  # noqa: UP035
 
 from dearfy.base import (
+    Callbackable,
     DragCallbackable,
     DropCallbackable,
     Enableable,
+    FilterKeyable,
     Indentable,
     Item,
     ItemKwargs,
     Positional,
     Showable,
     Sourceable,
+    TrackOffsetable,
     Variable,
     Widthable,
 )
@@ -27,11 +30,14 @@ class Combo(
     Enableable,
     Variable[str],
     Widthable,
+    Callbackable,
     DragCallbackable,
     DropCallbackable,
     Positional,
     Indentable,
     Sourceable,
+    FilterKeyable,
+    TrackOffsetable,
 ):
     REPR_HIDDEN_KWARGS = ('callback', 'drag_callback', 'drop_callback', 'items', 'default_value')
     REFERENCE_METHOD = dpg.add_combo
