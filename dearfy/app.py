@@ -10,6 +10,7 @@ import dearfy.icon
 from dearfy.action import Action, Actioner
 from dearfy.base import DOMNode, Item
 from dearfy.field import field
+from dearfy.font import Font
 from dearfy.functions import formatting_kwargs, generator_safe, get_method_needed
 from dearfy.typing import Color, DearfyObject, FilePath, Tag
 from dearfy.widgets import *
@@ -316,14 +317,23 @@ class App(DOMNode):
     def push_item(self, obj: Composable) -> None:
         self.push_item_to(obj)
 
-    def set_primary_window(self, window: Tag, value: bool) -> None:
-        dpg.set_primary_window(window, value)
+    def set_primary_window(self, window: Tag | Window, value: bool) -> None:
+        tag = window.tag if isinstance(window, Window) else window
+        dpg.set_primary_window(tag, value)
 
-    def bind_font(self, font: Tag) -> None:
-        dpg.bind_font(font)
+    def bind_font(self, font: Tag | Font) -> None:
+        """Global font setting.
 
-    def bind_item_font(self, item: Tag, font: Tag) -> None:
-        dpg.bind_item_font(item, font)
+        Args:
+            font (Tag | Font): A widget object or its tag.
+        """
+        tag = font.tag if isinstance(font, Font) else font
+        dpg.bind_font(tag)
+
+    def bind_item_font(self, item: Tag | Item, font: Tag | Font) -> None:
+        item_tag = item.tag if isinstance(item, Item) else item
+        font_tag = font.tag if isinstance(font, Font) else font
+        dpg.bind_item_font(item_tag, font_tag)
 
     def get_active_window(self) -> Window:
         return self.get_item(dpg.get_active_window())
