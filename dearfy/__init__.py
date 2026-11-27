@@ -12,9 +12,9 @@ from dearfy.logging import LoguruRichHandler, spetific_format_log
 # ! Metadata
 
 __name__ = 'dearfy'
-__version__ = '0.20.1'
+__version__ = '0.20.2'
 __author__ = 'peachboy0'
 
 # ! Logging
 
-loguru.logger.add(LoguruRichHandler(markup=True, show_path=False), format=spetific_format_log)
+loguru.logger.add(LoguruRichHandler(markup=True, show_path=False), format=spetific_format_log, colorize=False)
